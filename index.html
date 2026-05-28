@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZET DApps — LitVM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Space+Mono:ital,wght@0,400;0,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #020608;
+  --bg2: #050d12;
+  --bg3: #091520;
+  --card: #0b1822;
+  --border: #162535;
+  --green: #00ff88;
+  --green2: #00cc6a;
+  --cyan: #00e5ff;
+  --yellow: #fbbf24;
+  --red: #f43f5e;
+  --text: #cce8f4;
+  --text2: #7aadc4;
+  --muted: #3a5a70;
+  --fh: 'Orbitron', monospace;
+  --fb: 'Space Mono', monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);background:var(--bg);color:var(--text);min-height:100vh;position:relative}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 40% at 20% 20%,rgba(0,255,136,.05) 0%,transparent 60%),radial-gradient(ellipse 40% 60% at 80% 80%,rgba(0,229,255,.04) 0%,transparent 60%);pointer-events:none;z-index:0}
+body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,255,136,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,136,.02) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0}
+.z1{position:relative;z-index:1}
+header{position:sticky;top:0;z-index:100;background:rgba(2,6,8,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:13px 22px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--fh);font-size:1.35rem;font-weight:900;letter-spacing:.05em;color:var(--green);text-shadow:0 0 24px rgba(0,255,136,.5)}
+.logo span{color:var(--text);font-weight:400}
+.header-right{display:flex;align-items:center;gap:10px}
+.net-badge{font-size:.62rem;padding:4px 10px;border-radius:20px;background:rgba(0,255,136,.08);border:1px solid rgba(0,255,136,.25);color:var(--green);letter-spacing:.08em;white-space:nowrap}
+.conn-btn{font-family:var(--fh);font-size:.68rem;font-weight:600;letter-spacing:.08em;padding:8px 16px;border-radius:6px;border:1px solid var(--green);background:transparent;color:var(--green);cursor:pointer;transition:all .2s;white-space:nowrap}
+.conn-btn:hover{background:var(--green);color:var(--bg);box-shadow:0 0 20px rgba(0,255,136,.4)}
+.conn-btn.on{border-color:var(--cyan);color:var(--cyan)}
+.conn-btn.on:hover{background:var(--cyan);color:var(--bg);box-shadow:0 0 20px rgba(0,229,255,.4)}
+.container{max-width:520px;margin:0 auto;padding:28px 14px}
+.bals{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:20px}
+.bal-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:9px 10px;text-align:center}
+.bal-sym{font-size:.6rem;color:var(--text2);letter-spacing:.05em;margin-bottom:3px}
+.bal-amt{font-size:.78rem;font-weight:700;color:var(--text)}
+.tabs{display:flex;gap:4px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:4px;margin-bottom:14px}
+.tab{flex:1;font-family:var(--fh);font-size:.68rem;font-weight:600;letter-spacing:.06em;padding:9px;border-radius:7px;border:none;background:transparent;color:var(--muted);cursor:pointer;transition:all .2s}
+.tab.on{background:rgba(0,255,136,.1);color:var(--green);box-shadow:inset 0 0 12px rgba(0,255,136,.05)}
+.tab:hover:not(.on){color:var(--text2)}
+.panel{display:none}
+.panel.on{display:block}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:10px}
+.ctitle{font-family:var(--fh);font-size:.62rem;font-weight:600;letter-spacing:.12em;color:var(--text2);margin-bottom:14px;text-transform:uppercase}
+.trow{display:flex;align-items:center;gap:9px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:11px 13px;transition:border-color .2s}
+.trow:focus-within{border-color:rgba(0,255,136,.4)}
+.tsel{font-family:var(--fh);font-size:.72rem;font-weight:700;background:rgba(0,255,136,.08);border:1px solid rgba(0,255,136,.2);border-radius:6px;color:var(--green);padding:5px 9px;cursor:pointer;outline:none;min-width:88px}
+.tsel option{background:var(--bg2);color:var(--text)}
+.tinput{flex:1;background:transparent;border:none;outline:none;font-family:var(--fb);font-size:1.05rem;font-weight:700;color:var(--text);text-align:right;width:100%}
+.tinput::placeholder{color:var(--muted)}
+.tbal{font-size:.61rem;color:var(--text2);margin-top:4px;text-align:right;cursor:pointer}
+.tbal:hover{color:var(--green)}
+.sarrow{display:flex;justify-content:center;padding:5px 0}
+.abtn{width:30px;height:30px;border-radius:50%;border:1px solid var(--border);background:var(--bg3);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.95rem;transition:all .2s}
+.abtn:hover{border-color:var(--green);color:var(--green);transform:rotate(180deg)}
+.irow{display:flex;justify-content:space-between;align-items:center;padding:5px 0;font-size:.7rem;border-bottom:1px solid rgba(22,37,53,.5)}
+.irow:last-child{border-bottom:none}
+.ilbl{color:var(--text2)}
+.ival{color:var(--text);font-weight:700}
+.ival.g{color:var(--green)}
+.slip-row{display:flex;align-items:center;gap:7px;margin-top:11px}
+.slip-row label{font-size:.65rem;color:var(--text2);white-space:nowrap}
+.slip-opts{display:flex;gap:4px}
+.sbtn{font-family:var(--fb);font-size:.62rem;padding:3px 7px;border-radius:4px;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;transition:all .15s}
+.sbtn.on,.sbtn:hover{border-color:var(--green);color:var(--green);background:rgba(0,255,136,.07)}
+.scustom{width:56px;font-family:var(--fb);font-size:.62rem;padding:3px 6px;border-radius:4px;border:1px solid var(--border);background:transparent;color:var(--text);outline:none}
+.btn{width:100%;font-family:var(--fh);font-size:.78rem;font-weight:700;letter-spacing:.08em;padding:13px;border-radius:8px;border:none;cursor:pointer;transition:all .2s;margin-top:11px}
+.btn-p{background:linear-gradient(135deg,var(--green),var(--green2));color:var(--bg);box-shadow:0 4px 20px rgba(0,255,136,.18)}
+.btn-p:hover:not(:disabled){box-shadow:0 4px 30px rgba(0,255,136,.45);transform:translateY(-1px)}
+.btn-p:disabled{opacity:.35;cursor:not-allowed;transform:none}
+.btn-s{background:transparent;border:1px solid var(--cyan);color:var(--cyan)}
+.btn-s:hover:not(:disabled){background:rgba(0,229,255,.08)}
+.btn-s:disabled{opacity:.35;cursor:not-allowed}
+.brow{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.plus{text-align:center;color:var(--green);font-size:1.2rem;padding:5px 0}
+.resbox{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:11px 13px;margin-top:9px}
+.restitle{font-size:.6rem;color:var(--text2);margin-bottom:7px;letter-spacing:.06em}
+.resrow{display:flex;justify-content:space-between;font-size:.7rem;margin-bottom:3px}
+.qbox{background:rgba(0,255,136,.04);border:1px solid rgba(0,255,136,.14);border-radius:8px;padding:11px 13px;margin-top:7px}
+.lpbox{background:rgba(0,229,255,.04);border:1px solid rgba(0,229,255,.14);border-radius:8px;padding:11px 13px;margin-top:7px;font-size:.7rem}
+.destbox{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:11px 13px;margin-top:8px}
+.destbox label{font-size:.62rem;color:var(--text2);display:block;margin-bottom:7px;letter-spacing:.06em}
+.dinput{width:100%;font-family:var(--fb);font-size:.78rem;background:transparent;border:none;outline:none;color:var(--text)}
+.chopts{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}
+.chopt{font-size:.6rem;padding:3px 9px;border-radius:4px;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;transition:all .15s}
+.chopt.on,.chopt:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(0,229,255,.07)}
+#tc{position:fixed;top:18px;right:18px;z-index:9999;display:flex;flex-direction:column;gap:7px}
+.toast{font-size:.72rem;padding:11px 15px;border-radius:8px;border-left:3px solid;background:var(--card);max-width:300px;animation:sIn .25s ease;box-shadow:0 4px 20px rgba(0,0,0,.5)}
+.toast.s{border-color:var(--green)}
+.toast.e{border-color:var(--red)}
+.toast.i{border-color:var(--cyan)}
+.toast.w{border-color:var(--yellow)}
+.ttitle{font-family:var(--fh);font-size:.62rem;font-weight:700;letter-spacing:.06em;margin-bottom:2px}
+.toast.s .ttitle{color:var(--green)}
+.toast.e .ttitle{color:var(--red)}
+.toast.i .ttitle{color:var(--cyan)}
+.toast.w .ttitle{color:var(--yellow)}
+.tmsg{color:var(--text2);line-height:1.4}
+.txlnk{display:inline-block;margin-top:6px;font-size:.65rem;color:var(--cyan);text-decoration:none}
+.txlnk:hover{text-decoration:underline}
+@keyframes sIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes fOut{to{opacity:0;transform:translateX(20px)}}
+.spin{display:inline-block;width:13px;height:13px;border:2px solid rgba(0,0,0,.25);border-top-color:currentColor;border-radius:50%;animation:rot .6s linear infinite;vertical-align:middle;margin-right:5px}
+@keyframes rot{to{transform:rotate(360deg)}}
+.lov{position:fixed;inset:0;background:rgba(2,6,8,.75);display:none;align-items:center;justify-content:center;z-index:500}
+.lov.show{display:flex}
+.lbox{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px 38px;text-align:center}
+.lspin{width:34px;height:34px;border:3px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:rot .6s linear infinite;margin:0 auto 12px}
+.ltxt{font-family:var(--fh);font-size:.7rem;color:var(--text2);letter-spacing:.08em}
+.addr{font-size:.62rem;color:var(--muted);font-family:var(--fb)}
+@media(max-width:460px){.bals{grid-template-columns:repeat(2,1fr)}.logo{font-size:1.05rem}}
+</style>
+</head>
+<body>
+
+<div class="lov" id="lov"><div class="lbox"><div class="lspin"></div><div class="ltxt" id="ltxt">PROCESSING...</div></div></div>
+<div id="tc"></div>
+
+<header class="z1">
+  <div class="logo">ZET <span>DApps</span></div>
+  <div class="header-right">
+    <div class="net-badge">⬡ LitVM #4441</div>
+    <button class="conn-btn" id="connBtn">Connect Wallet</button>
+  </div>
+</header>
+
+<div class="container z1">
+  <div class="bals">
+    <div class="bal-item"><div class="bal-sym">USDC</div><div class="bal-amt" id="b-USDC">—</div></div>
+    <div class="bal-item"><div class="bal-sym">USDT</div><div class="bal-amt" id="b-USDT">—</div></div>
+    <div class="bal-item"><div class="bal-sym">WETH</div><div class="bal-amt" id="b-WETH">—</div></div>
+    <div class="bal-item"><div class="bal-sym">WBTC</div><div class="bal-amt" id="b-WBTC">—</div></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab on" onclick="switchTab('swap',this)">⇄ SWAP</button>
+    <button class="tab" onclick="switchTab('lp',this)">＋ ADD LP</button>
+    <button class="tab" onclick="switchTab('bridge',this)">⟳ BRIDGE</button>
+  </div>
+
+  <!-- SWAP -->
+  <div id="p-swap" class="panel on">
+    <div class="card">
+      <div class="ctitle">Swap Tokens</div>
+      <div>
+        <div class="trow">
+          <select class="tsel" id="sIn" onchange="onSwapChange()">
+            <option value="USDC">USDC</option>
+            <option value="USDT">USDT</option>
+            <option value="WETH" selected>WETH</option>
+            <option value="WBTC">WBTC</option>
+          </select>
+          <input type="number" class="tinput" id="sAmtIn" placeholder="0.00" oninput="onSwapChange()" min="0" />
+        </div>
+        <div class="tbal" id="sBin">Balance: —</div>
+      </div>
+      <div class="sarrow"><button class="abtn" onclick="flipSwap()">⇅</button></div>
+      <div>
+        <div class="trow">
+          <select class="tsel" id="sOut" onchange="onSwapChange()">
+            <option value="USDC" selected>USDC</option>
+            <option value="USDT">USDT</option>
+            <option value="WETH">WETH</option>
+            <option value="WBTC">WBTC</option>
+          </select>
+          <input type="number" class="tinput" id="sAmtOut" placeholder="0.00" readonly style="color:var(--text2)" />
+        </div>
+        <div class="tbal" id="sBout">Balance: —</div>
+      </div>
+      <div class="qbox" id="sqbox" style="display:none">
+        <div class="irow"><span class="ilbl">Rate</span><span class="ival g" id="sRate">—</span></div>
+        <div class="irow"><span class="ilbl">Min Received</span><span class="ival" id="sMin">—</span></div>
+        <div class="irow"><span class="ilbl">Slippage</span><span class="ival" id="sSlipDisp">0.5%</span></div>
+      </div>
+      <div class="slip-row">
+        <label>Slippage:</label>
+        <div class="slip-opts">
+          <button class="sbtn on" onclick="setSlip(0.5,this,'s')">0.5%</button>
+          <button class="sbtn" onclick="setSlip(1,this,'s')">1%</button>
+          <button class="sbtn" onclick="setSlip(3,this,'s')">3%</button>
+        </div>
+        <input type="number" class="scustom" placeholder="%" onchange="setSlipC(this.value,'s')" />
+      </div>
+      <button class="btn btn-p" id="swapBtn" onclick="doSwap()" disabled>Connect Wallet</button>
+    </div>
+  </div>
+
+  <!-- LP -->
+  <div id="p-lp" class="panel">
+    <div class="card">
+      <div class="ctitle">Add Liquidity</div>
+      <div>
+        <div class="trow">
+          <select class="tsel" id="lA" onchange="onLPChange()">
+            <option value="USDC">USDC</option>
+            <option value="USDT">USDT</option>
+            <option value="WETH" selected>WETH</option>
+            <option value="WBTC">WBTC</option>
+          </select>
+          <input type="number" class="tinput" id="lAmtA" placeholder="0.00" oninput="onLPAmtA()" min="0" />
+        </div>
+        <div class="tbal" id="lBa">Balance: —</div>
+      </div>
+      <div class="plus">+</div>
+      <div>
+        <div class="trow">
+          <select class="tsel" id="lB" onchange="onLPChange()">
+            <option value="USDC" selected>USDC</option>
+            <option value="USDT">USDT</option>
+            <option value="WETH">WETH</option>
+            <option value="WBTC">WBTC</option>
+          </select>
+          <input type="number" class="tinput" id="lAmtB" placeholder="0.00" oninput="onLPAmtB()" min="0" />
+        </div>
+        <div class="tbal" id="lBb">Balance: —</div>
+      </div>
+      <div class="resbox" id="resbox" style="display:none">
+        <div class="restitle">POOL RESERVES</div>
+        <div class="resrow"><span id="rS0" style="color:var(--text2)">—</span><span id="rV0" style="color:var(--text)">—</span></div>
+        <div class="resrow"><span id="rS1" style="color:var(--text2)">—</span><span id="rV1" style="color:var(--text)">—</span></div>
+      </div>
+      <div class="lpbox" id="lpbox" style="display:none">
+        <div class="irow"><span class="ilbl">Your LP Share</span><span class="ival g" id="lpShare">—</span></div>
+        <div class="irow"><span class="ilbl">Pair Address</span><span class="addr" id="lpPair">—</span></div>
+      </div>
+      <div class="slip-row" style="margin-top:11px">
+        <label>Slippage:</label>
+        <div class="slip-opts">
+          <button class="sbtn on" onclick="setSlip(0.5,this,'l')">0.5%</button>
+          <button class="sbtn" onclick="setSlip(1,this,'l')">1%</button>
+          <button class="sbtn" onclick="setSlip(3,this,'l')">3%</button>
+        </div>
+      </div>
+      <div class="brow">
+        <button class="btn btn-s" id="lpAppBtn" onclick="doLPApprove()" disabled>Approve</button>
+        <button class="btn btn-p" id="lpAddBtn" onclick="doAddLP()" disabled>Add LP</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- BRIDGE -->
+  <div id="p-bridge" class="panel">
+    <div class="card">
+      <div class="ctitle">Bridge Tokens</div>
+      <div>
+        <div class="trow">
+          <select class="tsel" id="brTok" onchange="onBridgeChange()">
+            <option value="USDC">USDC</option>
+            <option value="USDT">USDT</option>
+            <option value="WETH" selected>WETH</option>
+            <option value="WBTC">WBTC</option>
+          </select>
+          <input type="number" class="tinput" id="brAmt" placeholder="0.00" oninput="onBridgeChange()" min="0" />
+        </div>
+        <div class="tbal" id="brBal">Balance: —</div>
+      </div>
+      <div style="margin-top:9px">
+        <div class="trow">
+          <span style="font-size:.62rem;color:var(--text2);white-space:nowrap;margin-right:8px">TO</span>
+          <input type="text" class="tinput" id="brRecip" placeholder="Recipient address (default: your wallet)" style="font-size:.72rem;font-weight:400" />
+        </div>
+      </div>
+      <div class="destbox">
+        <label>DESTINATION CHAIN ID</label>
+        <input type="number" class="dinput" id="brChain" value="1" placeholder="Chain ID" />
+        <div class="chopts">
+          <button class="chopt on" onclick="setDestChain(1,this)">Ethereum (1)</button>
+          <button class="chopt" onclick="setDestChain(10,this)">Optimism (10)</button>
+          <button class="chopt" onclick="setDestChain(42161,this)">Arbitrum (42161)</button>
+          <button class="chopt" onclick="setDestChain(8453,this)">Base (8453)</button>
+        </div>
+      </div>
+      <div class="qbox" style="margin-top:8px">
+        <div class="irow"><span class="ilbl">From</span><span class="ival g">LitVM Testnet (4441)</span></div>
+        <div class="irow"><span class="ilbl">To</span><span class="ival" id="brDestName">Ethereum (1)</span></div>
+        <div class="irow"><span class="ilbl">Bridge Contract</span><span class="addr">0xd9Fe...7e9C</span></div>
+      </div>
+      <div class="brow" style="margin-top:0">
+        <button class="btn btn-s" id="brAppBtn" onclick="doBridgeApprove()" disabled>Approve</button>
+        <button class="btn btn-p" id="brBtn" onclick="doBridge()" disabled>Bridge</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+<script>
+const CHAIN_ID = 4441;
+const CHAIN_HEX = '0x' + CHAIN_ID.toString(16);
+const RPC = 'https://liteforge.rpc.caldera.xyz/http';
+const EXPLORER = 'https://liteforge.explorer.caldera.xyz';
+
+const TOKENS = {
+  USDC:{ address:'0xaaa101d72680F5aB9222431d4b3936Bb9a77702e', decimals:6 },
+  USDT:{ address:'0x9cA225DE592ac8060e5DCd7cf235aE778df11e32', decimals:6 },
+  WETH:{ address:'0xeF271adC5ef13205118e4d90Ad4A7013b528927E', decimals:18 },
+  WBTC:{ address:'0x0ef67FfBfF7Da1c9792De292D8e3c73d3E0ed3a9', decimals:8 },
+};
+const ROUTER   = '0xB371068e32249ef14b396ECd7a3083A00A72dfA0';
+const FACTORY  = '0x011646182FB03a91c237a6365CAa81a9BbbAcB45';
+const BRIDGE   = '0xd9Fe5b8473cC2B208023D7753b2b9bD206937e9C';
+const CHAINS   = {1:'Ethereum (1)',10:'Optimism (10)',42161:'Arbitrum (42161)',8453:'Base (8453)'};
+
+const ERC20 = [
+  'function approve(address s,uint256 a) external returns(bool)',
+  'function allowance(address o,address s) external view returns(uint256)',
+  'function balanceOf(address a) external view returns(uint256)',
+];
+const ROUTER_ABI = [
+  'function swapExactTokensForTokens(uint aIn,uint aOutMin,address[] path,address to,uint deadline) external returns(uint[] memory)',
+  'function addLiquidity(address tA,address tB,uint aAd,uint aBd,uint aAm,uint aBm,address to,uint dl) external returns(uint,uint,uint)',
+  'function getAmountsOut(uint aIn,address[] path) external view returns(uint[] memory)',
+];
+const FACTORY_ABI = ['function getPair(address a,address b) external view returns(address)'];
+const PAIR_ABI = [
+  'function getReserves() external view returns(uint112,uint112,uint32)',
+  'function token0() external view returns(address)',
+  'function totalSupply() external view returns(uint256)',
+  'function balanceOf(address) external view returns(uint256)',
+];
+const BRIDGE_ABI = [
+  'function deposit(address token,uint256 amount,uint256 destChainId,address recipient) external',
+  'function bridge(address token,uint256 amount,uint256 destChainId,address recipient) external',
+  'function transfer(address token,uint256 amount,uint256 destChainId,address recipient) external',
+];
+
+let S = { provider:null, signer:null, account:null, bals:{}, sSlip:0.5, lSlip:0.5, brChain:1 };
+let lpRes = null, lpPairAddr = null;
+
+// ── WALLET ──
+async function connectWallet() {
+  if (!window.ethereum) { toast('e','No Wallet','Install MetaMask or compatible wallet'); return; }
+  try {
+    const accs = await window.ethereum.request({ method:'eth_requestAccounts' });
+    S.account = accs[0];
+    S.provider = new ethers.providers.Web3Provider(window.ethereum);
+    S.signer   = S.provider.getSigner();
+    await addChain();
+    refreshWalletUI();
+    await loadBals();
+    unlockBtns();
+    toast('s','Connected',short(S.account));
+  } catch(e){ toast('e','Failed',e.message); }
+}
+
+async function addChain() {
+  try {
+    await window.ethereum.request({ method:'wallet_switchEthereumChain', params:[{chainId:CHAIN_HEX}] });
+  } catch(e) {
+    if (e.code===4902) {
+      await window.ethereum.request({ method:'wallet_addEthereumChain', params:[{
+        chainId:CHAIN_HEX, chainName:'LitVM Testnet',
+        nativeCurrency:{name:'ETH',symbol:'ETH',decimals:18},
+        rpcUrls:[RPC], blockExplorerUrls:[EXPLORER]
+      }]});
+    }
+  }
+  S.provider = new ethers.providers.Web3Provider(window.ethereum);
+  S.signer   = S.provider.getSigner();
+}
+
+function refreshWalletUI() {
+  const b = document.getElementById('connBtn');
+  b.textContent = short(S.account);
+  b.classList.add('on');
+  b.onclick = ()=>{};
+}
+
+async function loadBals() {
+  if (!S.account) return;
+  for (const [sym,tok] of Object.entries(TOKENS)) {
+    try {
+      const c = new ethers.Contract(tok.address, ERC20, S.provider);
+      const raw = await c.balanceOf(S.account);
+      S.bals[sym] = parseFloat(ethers.utils.formatUnits(raw, tok.decimals));
+      const el = document.getElementById('b-'+sym);
+      if (el) el.textContent = fmt(S.bals[sym]);
+    } catch{}
+  }
+  updateSwapBals(); updateLPBals(); updateBridgeBal();
+}
+
+function unlockBtns() {
+  ['swapBtn','lpAppBtn','lpAddBtn','brAppBtn','brBtn'].forEach(id=>{
+    const el = document.getElementById(id);
+    if (el) { el.disabled = false; if(id==='swapBtn') el.textContent='Swap'; }
+  });
+}
+
+// ── SWAP ──
+let swapT = null;
+function onSwapChange(){ updateSwapBals(); clearTimeout(swapT); swapT=setTimeout(getQuote,500); }
+
+function updateSwapBals() {
+  const iS=document.getElementById('sIn').value, oS=document.getElementById('sOut').value;
+  document.getElementById('sBin').innerHTML = `Balance: ${fmt(S.bals[iS]||0)} <span style="color:var(--green);font-size:.6rem;cursor:pointer" onclick="maxSwap()">MAX</span>`;
+  document.getElementById('sBout').textContent = `Balance: ${fmt(S.bals[oS]||0)}`;
+}
+
+function maxSwap() {
+  const sym = document.getElementById('sIn').value;
+  document.getElementById('sAmtIn').value = S.bals[sym]||0;
+  onSwapChange();
+}
+
+function flipSwap() {
+  const i=document.getElementById('sIn'), o=document.getElementById('sOut'), tmp=i.value;
+  i.value=o.value; o.value=tmp;
+  document.getElementById('sAmtIn').value='';
+  document.getElementById('sAmtOut').value='';
+  document.getElementById('sqbox').style.display='none';
+  updateSwapBals();
+}
+
+async function getQuote() {
+  const amt=document.getElementById('sAmtIn').value;
+  const iS=document.getElementById('sIn').value, oS=document.getElementById('sOut').value;
+  document.getElementById('sAmtOut').value='';
+  document.getElementById('sqbox').style.display='none';
+  if (!amt||parseFloat(amt)<=0||iS===oS||!S.provider) return;
+  try {
+    const r=new ethers.Contract(ROUTER,ROUTER_ABI,S.provider);
+    const wi=ethers.utils.parseUnits(amt,TOKENS[iS].decimals);
+    const amts=await r.getAmountsOut(wi,[TOKENS[iS].address,TOKENS[oS].address]);
+    const out=parseFloat(ethers.utils.formatUnits(amts[1],TOKENS[oS].decimals));
+    document.getElementById('sAmtOut').value=out.toFixed(6);
+    const minOut=out*(1-S.sSlip/100);
+    document.getElementById('sRate').textContent=`1 ${iS} = ${(out/parseFloat(amt)).toFixed(6)} ${oS}`;
+    document.getElementById('sMin').textContent=`${minOut.toFixed(6)} ${oS}`;
+    document.getElementById('sSlipDisp').textContent=S.sSlip+'%';
+    document.getElementById('sqbox').style.display='block';
+  } catch{ toast('w','No Route','No liquidity path found for this pair'); }
+}
+
+async function doSwap() {
+  if (!S.signer){ toast('e','Not Connected','Connect wallet first'); return; }
+  const amtIn=document.getElementById('sAmtIn').value;
+  const amtOut=document.getElementById('sAmtOut').value;
+  const iS=document.getElementById('sIn').value, oS=document.getElementById('sOut').value;
+  if (!amtIn||!amtOut||iS===oS){ toast('w','Invalid Input','Enter amount and select different tokens'); return; }
+  const iTok=TOKENS[iS], oTok=TOKENS[oS];
+  const wiIn=ethers.utils.parseUnits(amtIn,iTok.decimals);
+  const wiOutMin=ethers.utils.parseUnits((parseFloat(amtOut)*(1-S.sSlip/100)).toFixed(oTok.decimals),oTok.decimals);
+  try {
+    showL('APPROVING...');
+    const tc=new ethers.Contract(iTok.address,ERC20,S.signer);
+    const alw=await tc.allowance(S.account,ROUTER);
+    if (alw.lt(wiIn)){
+      const tx=await tc.approve(ROUTER,ethers.constants.MaxUint256);
+      toast('i','Approving','Waiting for confirmation...');
+      await tx.wait();
+      toast('s','Approved',iS+' approved');
+    }
+    setL('SWAPPING...');
+    const r=new ethers.Contract(ROUTER,ROUTER_ABI,S.signer);
+    const dl=Math.floor(Date.now()/1000)+1200;
+    const tx=await r.swapExactTokensForTokens(wiIn,wiOutMin,[iTok.address,oTok.address],S.account,dl);
+    toast('i','Tx Submitted','Waiting for confirmation...');
+    await tx.wait();
+    hideL();
+    toast('s','Swap Complete!',`${amtIn} ${iS} → ~${parseFloat(amtOut).toFixed(4)} ${oS}`,tx.hash);
+    document.getElementById('sAmtIn').value='';
+    document.getElementById('sAmtOut').value='';
+    document.getElementById('sqbox').style.display='none';
+    await loadBals();
+  } catch(e){ hideL(); toast('e','Swap Failed',e.reason||e.message); }
+}
+
+// ── LP ──
+let lpT=null;
+function onLPChange(){ updateLPBals(); clearTimeout(lpT); lpT=setTimeout(fetchLP,600); }
+function onLPAmtA(){ clearTimeout(lpT); lpT=setTimeout(calcLPB,450); }
+function onLPAmtB(){ clearTimeout(lpT); lpT=setTimeout(updateLPPreview,300); }
+
+function updateLPBals() {
+  const sA=document.getElementById('lA').value, sB=document.getElementById('lB').value;
+  document.getElementById('lBa').innerHTML=`Balance: ${fmt(S.bals[sA]||0)} <span style="color:var(--green);font-size:.6rem;cursor:pointer" onclick="maxLPA()">MAX</span>`;
+  document.getElementById('lBb').textContent=`Balance: ${fmt(S.bals[sB]||0)}`;
+}
+
+function maxLPA(){
+  const sym=document.getElementById('lA').value;
+  document.getElementById('lAmtA').value=S.bals[sym]||0;
+  onLPAmtA();
+}
+
+async function fetchLP() {
+  const sA=document.getElementById('lA').value, sB=document.getElementById('lB').value;
+  if (sA===sB||!S.provider) return;
+  try {
+    const fc=new ethers.Contract(FACTORY,FACTORY_ABI,S.provider);
+    const pa=await fc.getPair(TOKENS[sA].address,TOKENS[sB].address);
+    lpPairAddr=pa;
+    if (pa===ethers.constants.AddressZero){ document.getElementById('resbox').style.display='none'; lpRes=null; return; }
+    const pair=new ethers.Contract(pa,PAIR_ABI,S.provider);
+    const [r0,r1]=await pair.getReserves();
+    const t0=(await pair.token0()).toLowerCase();
+    const isAt0=TOKENS[sA].address.toLowerCase()===t0;
+    const rA=isAt0?r0:r1, rB=isAt0?r1:r0;
+    lpRes={rA,rB,sA,sB};
+    document.getElementById('rS0').textContent=sA+' Reserve';
+    document.getElementById('rV0').textContent=parseFloat(ethers.utils.formatUnits(rA,TOKENS[sA].decimals)).toFixed(4);
+    document.getElementById('rS1').textContent=sB+' Reserve';
+    document.getElementById('rV1').textContent=parseFloat(ethers.utils.formatUnits(rB,TOKENS[sB].decimals)).toFixed(4);
+    document.getElementById('resbox').style.display='block';
+    document.getElementById('lpPair').textContent=pa.slice(0,8)+'...'+pa.slice(-6);
+    await calcLPB();
+  } catch(e){ console.error(e); }
+}
+
+async function calcLPB() {
+  const amtA=document.getElementById('lAmtA').value;
+  if (!amtA||parseFloat(amtA)<=0||!lpRes){ updateLPPreview(); return; }
+  const sA=document.getElementById('lA').value, sB=document.getElementById('lB').value;
+  const {rA,rB}=lpRes;
+  const wiA=ethers.utils.parseUnits(amtA,TOKENS[sA].decimals);
+  const wiB=wiA.mul(rB).div(rA);
+  document.getElementById('lAmtB').value=parseFloat(ethers.utils.formatUnits(wiB,TOKENS[sB].decimals)).toFixed(6);
+  updateLPPreview();
+}
+
+async function updateLPPreview() {
+  if (!lpPairAddr||lpPairAddr===ethers.constants.AddressZero){ document.getElementById('lpbox').style.display='none'; return; }
+  try {
+    const pair=new ethers.Contract(lpPairAddr,PAIR_ABI,S.provider);
+    const ts=await pair.totalSupply();
+    const amtA=parseFloat(document.getElementById('lAmtA').value||0);
+    if (!lpRes||amtA<=0){ document.getElementById('lpbox').style.display='none'; return; }
+    const rAf=parseFloat(ethers.utils.formatUnits(lpRes.rA,TOKENS[lpRes.sA].decimals));
+    const share=(amtA/(rAf+amtA))*100;
+    document.getElementById('lpShare').textContent=share.toFixed(4)+'%';
+    document.getElementById('lpbox').style.display='block';
+  } catch{}
+}
+
+async function doLPApprove() {
+  if (!S.signer){ toast('e','Not Connected','Connect wallet first'); return; }
+  const sA=document.getElementById('lA').value, sB=document.getElementById('lB').value;
+  const aA=document.getElementById('lAmtA').value, aB=document.getElementById('lAmtB').value;
+  if (!aA||!aB){ toast('w','Enter Amounts','Fill both amounts first'); return; }
+  try {
+    showL('APPROVING TOKENS...');
+    const cA=new ethers.Contract(TOKENS[sA].address,ERC20,S.signer);
+    const cB=new ethers.Contract(TOKENS[sB].address,ERC20,S.signer);
+    const wiA=ethers.utils.parseUnits(aA,TOKENS[sA].decimals);
+    const wiB=ethers.utils.parseUnits(aB,TOKENS[sB].decimals);
+    const alA=await cA.allowance(S.account,ROUTER);
+    if (alA.lt(wiA)){ const t=await cA.approve(ROUTER,ethers.constants.MaxUint256); await t.wait(); toast('s','Approved',sA+' approved'); }
+    const alB=await cB.allowance(S.account,ROUTER);
+    if (alB.lt(wiB)){ const t=await cB.approve(ROUTER,ethers.constants.MaxUint256); await t.wait(); toast('s','Approved',sB+' approved'); }
+    hideL(); toast('s','All Approved',`${sA} & ${sB} ready for router`);
+  } catch(e){ hideL(); toast('e','Failed',e.reason||e.message); }
+}
+
+async function doAddLP() {
+  if (!S.signer){ toast('e','Not Connected','Connect wallet first'); return; }
+  const sA=document.getElementById('lA').value, sB=document.getElementById('lB').value;
+  if (sA===sB){ toast('w','Invalid','Select different tokens'); return; }
+  const aA=document.getElementById('lAmtA').value, aB=document.getElementById('lAmtB').value;
+  if (!aA||!aB){ toast('w','Enter Amounts','Fill both token amounts'); return; }
+  const wiA=ethers.utils.parseUnits(aA,TOKENS[sA].decimals);
+  const wiB=ethers.utils.parseUnits(aB,TOKENS[sB].decimals);
+  const slip=Math.floor((1-S.lSlip/100)*10000);
+  const wiAm=wiA.mul(slip).div(10000);
+  const wiBm=wiB.mul(slip).div(10000);
+  try {
+    showL('ADDING LIQUIDITY...');
+    const r=new ethers.Contract(ROUTER,ROUTER_ABI,S.signer);
+    const dl=Math.floor(Date.now()/1000)+1200;
+    const tx=await r.addLiquidity(TOKENS[sA].address,TOKENS[sB].address,wiA,wiB,wiAm,wiBm,S.account,dl);
+    toast('i','Adding LP...','Transaction submitted');
+    await tx.wait();
+    hideL();
+    toast('s','LP Added!',`${aA} ${sA} + ${aB} ${sB}`,tx.hash);
+    document.getElementById('lAmtA').value='';
+    document.getElementById('lAmtB').value='';
+    await loadBals(); await fetchLP();
+  } catch(e){ hideL(); toast('e','Add LP Failed',e.reason||e.message); }
+}
+
+// ── BRIDGE ──
+function onBridgeChange(){ updateBridgeBal(); }
+function updateBridgeBal(){
+  const sym=document.getElementById('brTok').value;
+  document.getElementById('brBal').innerHTML=`Balance: ${fmt(S.bals[sym]||0)} <span style="color:var(--green);font-size:.6rem;cursor:pointer" onclick="maxBridge()">MAX</span>`;
+}
+function maxBridge(){ const sym=document.getElementById('brTok').value; document.getElementById('brAmt').value=S.bals[sym]||0; }
+function setDestChain(id,el){
+  document.querySelectorAll('.chopt').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('brChain').value=id;
+  S.brChain=id;
+  document.getElementById('brDestName').textContent=CHAINS[id]||'Chain '+id;
+}
+
+async function doBridgeApprove() {
+  if (!S.signer){ toast('e','Not Connected','Connect wallet first'); return; }
+  const sym=document.getElementById('brTok').value, amt=document.getElementById('brAmt').value;
+  if (!amt||parseFloat(amt)<=0){ toast('w','Enter Amount','Fill in an amount first'); return; }
+  try {
+    showL('APPROVING...');
+    const c=new ethers.Contract(TOKENS[sym].address,ERC20,S.signer);
+    const wi=ethers.utils.parseUnits(amt,TOKENS[sym].decimals);
+    const alw=await c.allowance(S.account,BRIDGE);
+    if (alw.gte(wi)){ hideL(); toast('i','Already Approved','Sufficient allowance exists'); return; }
+    const tx=await c.approve(BRIDGE,ethers.constants.MaxUint256);
+    await tx.wait();
+    hideL(); toast('s','Approved',sym+' approved for bridge');
+  } catch(e){ hideL(); toast('e','Failed',e.reason||e.message); }
+}
+
+async function doBridge() {
+  if (!S.signer){ toast('e','Not Connected','Connect wallet first'); return; }
+  const sym=document.getElementById('brTok').value;
+  const amt=document.getElementById('brAmt').value;
+  const destChain=parseInt(document.getElementById('brChain').value);
+  let recip=document.getElementById('brRecip').value.trim()||S.account;
+  if (!amt||parseFloat(amt)<=0){ toast('w','Invalid','Enter an amount'); return; }
+  if (!ethers.utils.isAddress(recip)){ toast('e','Invalid Address','Check recipient address'); return; }
+  const wi=ethers.utils.parseUnits(amt,TOKENS[sym].decimals);
+  try {
+    showL('BRIDGING...');
+    const bc=new ethers.Contract(BRIDGE,BRIDGE_ABI,S.signer);
+    let tx;
+    // Try function signatures in order
+    try { tx=await bc.deposit(TOKENS[sym].address,wi,destChain,recip); }
+    catch{ try { tx=await bc.bridge(TOKENS[sym].address,wi,destChain,recip); }
+    catch{ tx=await bc.transfer(TOKENS[sym].address,wi,destChain,recip); }}
+    toast('i','Bridging...','Transaction submitted');
+    await tx.wait();
+    hideL();
+    toast('s','Bridge Sent!',`${amt} ${sym} → ${CHAINS[destChain]||destChain}`,tx.hash);
+    document.getElementById('brAmt').value='';
+    await loadBals();
+  } catch(e){ hideL(); toast('e','Bridge Failed',e.reason||e.message); }
+}
+
+// ── SLIPPAGE ──
+function setSlip(v,el,ctx){
+  const sel=ctx==='s'?'#p-swap .sbtn':'#p-lp .sbtn';
+  document.querySelectorAll(sel).forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+  if (ctx==='s'){ S.sSlip=v; getQuote(); }
+  else S.lSlip=v;
+}
+function setSlipC(v,ctx){
+  if (!v||isNaN(v)) return;
+  document.querySelectorAll('#p-swap .sbtn').forEach(b=>b.classList.remove('on'));
+  S.sSlip=parseFloat(v); getQuote();
+}
+
+// ── TABS ──
+function switchTab(name,el){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
+  document.getElementById('p-'+name).classList.add('on');
+  el.classList.add('on');
+  if (name==='lp'){ updateLPBals(); fetchLP(); }
+  if (name==='bridge') updateBridgeBal();
+  if (name==='swap') updateSwapBals();
+}
+
+// ── UI ──
+function showL(t){ document.getElementById('ltxt').textContent=t||'PROCESSING...'; document.getElementById('lov').classList.add('show'); }
+function setL(t){ document.getElementById('ltxt').textContent=t; }
+function hideL(){ document.getElementById('lov').classList.remove('show'); }
+
+function toast(type,title,msg,hash){
+  const c=document.getElementById('tc');
+  const el=document.createElement('div');
+  el.className='toast '+type;
+  el.innerHTML=`<div class="ttitle">${title}</div><div class="tmsg">${msg}</div>${hash?`<a class="txlnk" href="${EXPLORER}/tx/${hash}" target="_blank">View Tx ↗</a>`:''}`;
+  c.appendChild(el);
+  setTimeout(()=>{ el.style.animation='fOut .3s ease forwards'; setTimeout(()=>el.remove(),300); },5000);
+}
+
+function short(a){ return a?a.slice(0,6)+'...'+a.slice(-4):''; }
+function fmt(n){
+  if (n===undefined||isNaN(n)) return '—';
+  if (n===0) return '0';
+  if (n<0.0001) return '<0.0001';
+  if (n<1) return n.toFixed(4);
+  if (n<1000) return n.toFixed(4);
+  return n.toLocaleString('en-US',{maximumFractionDigits:2});
+}
+
+// ── EVENTS ──
+if (window.ethereum){
+  window.ethereum.on('accountsChanged', async accs=>{
+    if (!accs.length){
+      S.account=null; S.signer=null;
+      const b=document.getElementById('connBtn');
+      b.textContent='Connect Wallet'; b.classList.remove('on'); b.onclick=connectWallet;
+    } else {
+      S.account=accs[0]; S.signer=S.provider.getSigner();
+      refreshWalletUI(); await loadBals();
+    }
+  });
+  window.ethereum.on('chainChanged',()=>location.reload());
+}
+document.getElementById('connBtn').onclick = connectWallet;
+</script>
+</body>
+</html>
