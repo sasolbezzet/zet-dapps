@@ -14,105 +14,94 @@
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:var(--fb);background:var(--bg);color:var(--text);min-height:100vh;position:relative}
+body{font-family:var(--fb);background:var(--bg);color:var(--text);min-height:100vh}
 body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 40% at 20% 20%,rgba(0,255,136,.05) 0%,transparent 60%),radial-gradient(ellipse 40% 60% at 80% 80%,rgba(0,229,255,.04) 0%,transparent 60%);pointer-events:none;z-index:0}
 body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,255,136,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,136,.02) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0}
 .z1{position:relative;z-index:1}
-header{position:sticky;top:0;z-index:100;background:rgba(2,6,8,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:8px}
-.logo{font-family:var(--fh);font-size:1.25rem;font-weight:900;letter-spacing:.05em;color:var(--green);text-shadow:0 0 24px rgba(0,255,136,.5);white-space:nowrap}
+header{position:sticky;top:0;z-index:100;background:rgba(2,6,8,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.logo{font-family:var(--fh);font-size:1.2rem;font-weight:900;letter-spacing:.05em;color:var(--green);text-shadow:0 0 24px rgba(0,255,136,.5);white-space:nowrap}
 .logo span{color:var(--text);font-weight:400}
-.header-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
-.net-badge{font-size:.58rem;padding:4px 9px;border-radius:20px;background:rgba(0,255,136,.08);border:1px solid rgba(0,255,136,.25);color:var(--green);letter-spacing:.07em;white-space:nowrap}
-.conn-btn{font-family:var(--fh);font-size:.65rem;font-weight:600;letter-spacing:.07em;padding:7px 14px;border-radius:6px;border:1px solid var(--green);background:transparent;color:var(--green);cursor:pointer;transition:all .2s;white-space:nowrap}
-.conn-btn:hover{background:var(--green);color:var(--bg);box-shadow:0 0 20px rgba(0,255,136,.4)}
+.hdr-r{display:flex;align-items:center;gap:7px}
+.net-badge{font-size:.57rem;padding:4px 9px;border-radius:20px;background:rgba(0,255,136,.08);border:1px solid rgba(0,255,136,.25);color:var(--green);letter-spacing:.07em;white-space:nowrap}
+.conn-btn{font-family:var(--fh);font-size:.63rem;font-weight:600;letter-spacing:.07em;padding:7px 13px;border-radius:6px;border:1px solid var(--green);background:transparent;color:var(--green);cursor:pointer;transition:all .2s;white-space:nowrap}
+.conn-btn:hover{background:var(--green);color:var(--bg)}
 .conn-btn.on{border-color:var(--cyan);color:var(--cyan)}
 .conn-btn.on:hover{background:var(--cyan);color:var(--bg)}
-.container{max-width:520px;margin:0 auto;padding:22px 12px 40px}
-.bals{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:16px}
-.bal-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px;text-align:center;cursor:pointer;transition:border-color .2s}
-.bal-item:hover{border-color:rgba(0,255,136,.3)}
-.bal-sym{font-size:.56rem;color:var(--text2);letter-spacing:.05em;margin-bottom:2px}
-.bal-amt{font-size:.72rem;font-weight:700;color:var(--text);word-break:break-all}
-.tabs{display:flex;gap:3px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:4px;margin-bottom:12px;overflow-x:auto}
-.tab{flex:1;font-family:var(--fh);font-size:.6rem;font-weight:600;letter-spacing:.05em;padding:8px 4px;border-radius:7px;border:none;background:transparent;color:var(--muted);cursor:pointer;transition:all .2s;white-space:nowrap;min-width:0}
+.wrap{max-width:520px;margin:0 auto;padding:20px 12px 48px}
+.bals{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:14px}
+.bal-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:7px 6px;text-align:center}
+.bal-sym{font-size:.54rem;color:var(--text2);letter-spacing:.04em;margin-bottom:2px}
+.bal-amt{font-size:.7rem;font-weight:700;color:var(--text);word-break:break-all}
+.tabs{display:flex;gap:3px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:3px;margin-bottom:11px}
+.tab{flex:1;font-family:var(--fh);font-size:.58rem;font-weight:600;letter-spacing:.04em;padding:8px 2px;border-radius:7px;border:none;background:transparent;color:var(--muted);cursor:pointer;transition:all .2s;white-space:nowrap}
 .tab.on{background:rgba(0,255,136,.1);color:var(--green)}
 .tab:hover:not(.on){color:var(--text2)}
-.panel{display:none}
-.panel.on{display:block}
-.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:10px}
-.ctitle{font-family:var(--fh);font-size:.58rem;font-weight:600;letter-spacing:.12em;color:var(--text2);margin-bottom:13px;text-transform:uppercase}
-.trow{display:flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;transition:border-color .2s}
+.panel{display:none}.panel.on{display:block}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:15px;margin-bottom:10px}
+.ctitle{font-family:var(--fh);font-size:.57rem;font-weight:600;letter-spacing:.11em;color:var(--text2);margin-bottom:12px;text-transform:uppercase}
+.trow{display:flex;align-items:center;gap:7px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 11px;transition:border-color .2s}
 .trow:focus-within{border-color:rgba(0,255,136,.4)}
-.tsel{font-family:var(--fh);font-size:.68rem;font-weight:700;background:rgba(0,255,136,.08);border:1px solid rgba(0,255,136,.2);border-radius:6px;color:var(--green);padding:5px 7px;cursor:pointer;outline:none;min-width:82px}
+.tsel{font-family:var(--fh);font-size:.67rem;font-weight:700;background:rgba(0,255,136,.08);border:1px solid rgba(0,255,136,.2);border-radius:6px;color:var(--green);padding:5px 7px;cursor:pointer;outline:none;min-width:80px}
 .tsel option{background:var(--bg2);color:var(--text)}
-.tinput{flex:1;background:transparent;border:none;outline:none;font-family:var(--fb);font-size:.95rem;font-weight:700;color:var(--text);text-align:right;width:0;min-width:0}
+.tinput{flex:1;background:transparent;border:none;outline:none;font-family:var(--fb);font-size:.92rem;font-weight:700;color:var(--text);text-align:right;width:0;min-width:0}
 .tinput::placeholder{color:var(--muted)}
-.tbal{font-size:.59rem;color:var(--text2);margin-top:3px;text-align:right}
-.tbal .mx{color:var(--green);cursor:pointer;margin-left:4px}
-.tbal .mx:hover{text-decoration:underline}
-.sarrow{display:flex;justify-content:center;padding:4px 0}
-.abtn{width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:var(--bg3);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:all .2s}
+.tbal{font-size:.58rem;color:var(--text2);margin-top:3px;text-align:right}
+.tbal .mx{color:var(--green);cursor:pointer;margin-left:4px;text-decoration:underline}
+.sarrow{display:flex;justify-content:center;padding:3px 0}
+.abtn{width:27px;height:27px;border-radius:50%;border:1px solid var(--border);background:var(--bg3);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.85rem;transition:all .2s}
 .abtn:hover{border-color:var(--green);color:var(--green);transform:rotate(180deg)}
-.irow{display:flex;justify-content:space-between;align-items:center;padding:4px 0;font-size:.67rem;border-bottom:1px solid rgba(22,37,53,.5)}
+.irow{display:flex;justify-content:space-between;align-items:center;padding:4px 0;font-size:.65rem;border-bottom:1px solid rgba(22,37,53,.5)}
 .irow:last-child{border-bottom:none}
-.ilbl{color:var(--text2)}
-.ival{color:var(--text);font-weight:700}
-.ival.g{color:var(--green)}
-.ival.r{color:var(--red)}
-.ival.y{color:var(--yellow)}
-.slip-row{display:flex;align-items:center;gap:6px;margin-top:10px;flex-wrap:wrap}
-.slip-row label{font-size:.62rem;color:var(--text2);white-space:nowrap}
+.ilbl{color:var(--text2)}.ival{color:var(--text);font-weight:700}
+.ival.g{color:var(--green)}.ival.r{color:var(--red)}.ival.y{color:var(--yellow)}
+.slip-row{display:flex;align-items:center;gap:6px;margin-top:9px;flex-wrap:wrap}
+.slip-row label{font-size:.6rem;color:var(--text2);white-space:nowrap}
 .slip-opts{display:flex;gap:3px}
-.sbtn{font-family:var(--fb);font-size:.6rem;padding:3px 7px;border-radius:4px;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;transition:all .15s}
+.sbtn{font-family:var(--fb);font-size:.58rem;padding:3px 7px;border-radius:4px;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;transition:all .15s}
 .sbtn.on,.sbtn:hover{border-color:var(--green);color:var(--green);background:rgba(0,255,136,.07)}
-.scustom{width:52px;font-family:var(--fb);font-size:.6rem;padding:3px 6px;border-radius:4px;border:1px solid var(--border);background:transparent;color:var(--text);outline:none}
-.btn{width:100%;font-family:var(--fh);font-size:.74rem;font-weight:700;letter-spacing:.07em;padding:12px;border-radius:8px;border:none;cursor:pointer;transition:all .2s;margin-top:10px}
+.scustom{width:50px;font-family:var(--fb);font-size:.58rem;padding:3px 6px;border-radius:4px;border:1px solid var(--border);background:transparent;color:var(--text);outline:none}
+.btn{width:100%;font-family:var(--fh);font-size:.72rem;font-weight:700;letter-spacing:.07em;padding:12px;border-radius:8px;border:none;cursor:pointer;transition:all .2s;margin-top:9px}
 .btn-p{background:linear-gradient(135deg,var(--green),var(--green2));color:var(--bg);box-shadow:0 4px 20px rgba(0,255,136,.15)}
-.btn-p:hover:not(:disabled){box-shadow:0 4px 30px rgba(0,255,136,.45);transform:translateY(-1px)}
-.btn-p:disabled{opacity:.35;cursor:not-allowed;transform:none}
+.btn-p:hover:not(:disabled){box-shadow:0 4px 28px rgba(0,255,136,.4);transform:translateY(-1px)}
+.btn-p:disabled,.btn-s:disabled,.btn-y:disabled{opacity:.35;cursor:not-allowed;transform:none!important}
 .btn-s{background:transparent;border:1px solid var(--cyan);color:var(--cyan)}
 .btn-s:hover:not(:disabled){background:rgba(0,229,255,.08)}
-.btn-s:disabled{opacity:.35;cursor:not-allowed}
 .btn-y{background:transparent;border:1px solid var(--yellow);color:var(--yellow)}
 .btn-y:hover:not(:disabled){background:rgba(251,191,36,.08)}
-.btn-y:disabled{opacity:.35;cursor:not-allowed}
-.brow{display:grid;grid-template-columns:1fr 1fr;gap:7px}
-.plus{text-align:center;color:var(--green);font-size:1.1rem;padding:4px 0}
-.resbox{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-top:8px}
-.restitle{font-size:.58rem;color:var(--text2);margin-bottom:6px;letter-spacing:.06em}
-.resrow{display:flex;justify-content:space-between;font-size:.67rem;margin-bottom:2px}
-.qbox{background:rgba(0,255,136,.04);border:1px solid rgba(0,255,136,.12);border-radius:8px;padding:10px 12px;margin-top:7px}
-.lpbox{background:rgba(0,229,255,.04);border:1px solid rgba(0,229,255,.12);border-radius:8px;padding:10px 12px;margin-top:6px;font-size:.67rem}
-.warnbox{background:rgba(251,191,36,.05);border:1px solid rgba(251,191,36,.25);border-radius:8px;padding:10px 12px;margin-top:7px;font-size:.67rem;line-height:1.5;color:var(--yellow)}
-.infobox{background:rgba(0,229,255,.05);border:1px solid rgba(0,229,255,.2);border-radius:8px;padding:10px 12px;margin-top:7px;font-size:.67rem;line-height:1.5;color:var(--cyan)}
-.destbox{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-top:7px}
-.destbox label{font-size:.6rem;color:var(--text2);display:block;margin-bottom:6px;letter-spacing:.05em}
-.dinput{width:100%;font-family:var(--fb);font-size:.75rem;background:transparent;border:none;outline:none;color:var(--text)}
-.chopts{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}
-.chopt{font-size:.58rem;padding:3px 8px;border-radius:4px;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;transition:all .15s}
-.chopt.on,.chopt:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(0,229,255,.07)}
-.stake-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
-.stkbox{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center}
-.stklab{font-size:.58rem;color:var(--text2);margin-bottom:3px;letter-spacing:.05em}
-.stkval{font-size:.82rem;font-weight:700;color:var(--green)}
-#tc{position:fixed;top:14px;right:14px;z-index:9999;display:flex;flex-direction:column;gap:6px;max-width:290px}
-.toast{font-size:.68rem;padding:10px 13px;border-radius:8px;border-left:3px solid;background:var(--card);animation:sIn .25s ease;box-shadow:0 4px 20px rgba(0,0,0,.5)}
+.brow{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.plus{text-align:center;color:var(--green);font-size:1.05rem;padding:3px 0}
+.resbox{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:9px 11px;margin-top:7px}
+.restitle{font-size:.57rem;color:var(--text2);margin-bottom:5px;letter-spacing:.06em}
+.resrow{display:flex;justify-content:space-between;font-size:.65rem;margin-bottom:2px}
+.qbox{background:rgba(0,255,136,.04);border:1px solid rgba(0,255,136,.12);border-radius:8px;padding:9px 11px;margin-top:6px}
+.lpbox{background:rgba(0,229,255,.04);border:1px solid rgba(0,229,255,.12);border-radius:8px;padding:9px 11px;margin-top:6px;font-size:.65rem}
+.warnbox{background:rgba(251,191,36,.05);border:1px solid rgba(251,191,36,.25);border-radius:8px;padding:9px 11px;margin-top:6px;font-size:.65rem;line-height:1.5;color:var(--yellow)}
+.infobox{background:rgba(0,229,255,.04);border:1px solid rgba(0,229,255,.18);border-radius:8px;padding:9px 11px;margin-top:6px;font-size:.65rem;line-height:1.55;color:var(--cyan)}
+.destbox{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:9px 11px;margin-top:7px}
+.destbox label{font-size:.58rem;color:var(--text2);display:block;margin-bottom:5px;letter-spacing:.05em}
+.dinput{width:100%;font-family:var(--fb);font-size:.73rem;background:transparent;border:none;outline:none;color:var(--text)}
+.stk-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:9px}
+.stkbox{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:9px;text-align:center}
+.stklab{font-size:.56rem;color:var(--text2);margin-bottom:3px;letter-spacing:.04em}
+.stkval{font-size:.78rem;font-weight:700;color:var(--green)}
+#tc{position:fixed;top:12px;right:12px;z-index:9999;display:flex;flex-direction:column;gap:5px;max-width:280px}
+.toast{font-size:.66rem;padding:9px 12px;border-radius:8px;border-left:3px solid;background:var(--card);animation:sIn .25s ease;box-shadow:0 4px 18px rgba(0,0,0,.5)}
 .toast.s{border-color:var(--green)}.toast.e{border-color:var(--red)}.toast.i{border-color:var(--cyan)}.toast.w{border-color:var(--yellow)}
-.ttitle{font-family:var(--fh);font-size:.58rem;font-weight:700;letter-spacing:.06em;margin-bottom:2px}
+.ttitle{font-family:var(--fh);font-size:.56rem;font-weight:700;letter-spacing:.06em;margin-bottom:2px}
 .toast.s .ttitle{color:var(--green)}.toast.e .ttitle{color:var(--red)}.toast.i .ttitle{color:var(--cyan)}.toast.w .ttitle{color:var(--yellow)}
 .tmsg{color:var(--text2);line-height:1.4;word-break:break-word}
-.txlnk{display:inline-block;margin-top:5px;font-size:.62rem;color:var(--cyan);text-decoration:none}
+.txlnk{display:inline-block;margin-top:4px;font-size:.6rem;color:var(--cyan);text-decoration:none}
 .txlnk:hover{text-decoration:underline}
 @keyframes sIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
 @keyframes fOut{to{opacity:0;transform:translateX(20px)}}
 .lov{position:fixed;inset:0;background:rgba(2,6,8,.8);display:none;align-items:center;justify-content:center;z-index:500}
 .lov.show{display:flex}
-.lbox{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:26px 34px;text-align:center}
-.lspin{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:rot .6s linear infinite;margin:0 auto 10px}
-.ltxt{font-family:var(--fh);font-size:.66rem;color:var(--text2);letter-spacing:.08em}
-.addr{font-size:.6rem;color:var(--muted);font-family:var(--fb);word-break:break-all}
+.lbox{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px 32px;text-align:center}
+.lspin{width:30px;height:30px;border:3px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:rot .6s linear infinite;margin:0 auto 10px}
+.ltxt{font-family:var(--fh);font-size:.63rem;color:var(--text2);letter-spacing:.08em}
+.addr{font-size:.58rem;color:var(--muted);word-break:break-all}
 @keyframes rot{to{transform:rotate(360deg)}}
-@media(max-width:440px){.bals{grid-template-columns:repeat(2,1fr)}.logo{font-size:1rem}.tabs{gap:2px}.tab{font-size:.55rem;padding:7px 3px}}
+@media(max-width:420px){.bals{grid-template-columns:repeat(2,1fr)}.logo{font-size:.95rem}.tab{font-size:.52rem}}
 </style>
 </head>
 <body>
@@ -121,14 +110,13 @@ header{position:sticky;top:0;z-index:100;background:rgba(2,6,8,.92);backdrop-fil
 
 <header class="z1">
   <div class="logo">ZET <span>DApps</span></div>
-  <div class="header-right">
+  <div class="hdr-r">
     <div class="net-badge">⬡ LitVM #4441</div>
     <button class="conn-btn" id="connBtn">Connect Wallet</button>
   </div>
 </header>
 
-<div class="container z1">
-  <!-- Balances -->
+<div class="wrap z1">
   <div class="bals">
     <div class="bal-item"><div class="bal-sym">USDC</div><div class="bal-amt" id="b-USDC">—</div></div>
     <div class="bal-item"><div class="bal-sym">USDT</div><div class="bal-amt" id="b-USDT">—</div></div>
@@ -136,54 +124,45 @@ header{position:sticky;top:0;z-index:100;background:rgba(2,6,8,.92);backdrop-fil
     <div class="bal-item"><div class="bal-sym">WBTC</div><div class="bal-amt" id="b-WBTC">—</div></div>
   </div>
 
-  <!-- Tabs -->
   <div class="tabs">
-    <button class="tab on"   onclick="switchTab('swap',this)">⇄ SWAP</button>
-    <button class="tab"      onclick="switchTab('lp',this)">＋ ADD LP</button>
-    <button class="tab"      onclick="switchTab('bridge',this)">⟳ BRIDGE</button>
-    <button class="tab"      onclick="switchTab('stake',this)">⚡ STAKE</button>
+    <button class="tab on"  onclick="sw('swap',this)">⇄ SWAP</button>
+    <button class="tab"     onclick="sw('lp',this)">＋ LP</button>
+    <button class="tab"     onclick="sw('bridge',this)">⟳ BRIDGE</button>
+    <button class="tab"     onclick="sw('stake',this)">⚡ STAKE</button>
   </div>
 
-  <!-- ═══════════ SWAP ═══════════ -->
+  <!-- ═══ SWAP ═══ -->
   <div id="p-swap" class="panel on">
     <div class="card">
       <div class="ctitle">Swap Tokens</div>
-      <div>
-        <div class="trow">
-          <select class="tsel" id="sIn" onchange="onSwapChange()">
-            <option value="USDC">USDC</option>
-            <option value="USDT">USDT</option>
-            <option value="WETH" selected>WETH</option>
-            <option value="WBTC">WBTC</option>
-          </select>
-          <input type="number" class="tinput" id="sAmtIn" placeholder="0.00" oninput="onSwapChange()" min="0"/>
-        </div>
-        <div class="tbal" id="sBin">Balance: — <span class="mx" onclick="maxSwap()">MAX</span></div>
+      <div class="trow">
+        <select class="tsel" id="sIn" onchange="onSC()">
+          <option value="USDC">USDC</option><option value="USDT">USDT</option>
+          <option value="WETH" selected>WETH</option><option value="WBTC">WBTC</option>
+        </select>
+        <input type="number" class="tinput" id="sAmtIn" placeholder="0.00" oninput="onSC()" min="0"/>
       </div>
+      <div class="tbal" id="sBin">Balance: — <span class="mx" onclick="maxSwap()">MAX</span></div>
       <div class="sarrow"><button class="abtn" onclick="flipSwap()">⇅</button></div>
-      <div>
-        <div class="trow">
-          <select class="tsel" id="sOut" onchange="onSwapChange()">
-            <option value="USDC" selected>USDC</option>
-            <option value="USDT">USDT</option>
-            <option value="WETH">WETH</option>
-            <option value="WBTC">WBTC</option>
-          </select>
-          <input type="number" class="tinput" id="sAmtOut" placeholder="0.00" readonly style="color:var(--text2)"/>
-        </div>
-        <div class="tbal" id="sBout">Balance: —</div>
+      <div class="trow">
+        <select class="tsel" id="sOut" onchange="onSC()">
+          <option value="USDC" selected>USDC</option><option value="USDT">USDT</option>
+          <option value="WETH">WETH</option><option value="WBTC">WBTC</option>
+        </select>
+        <input type="number" class="tinput" id="sAmtOut" placeholder="0.00" readonly style="color:var(--text2)"/>
       </div>
-      <div id="swap-warn" class="warnbox" style="display:none"></div>
-      <div class="qbox" id="sqbox" style="display:none">
+      <div class="tbal" id="sBout">Balance: —</div>
+      <div id="swW" class="warnbox" style="display:none"></div>
+      <div id="sqbox" class="qbox" style="display:none">
         <div class="irow"><span class="ilbl">Rate</span><span class="ival g" id="sRate">—</span></div>
         <div class="irow"><span class="ilbl">Min Received</span><span class="ival" id="sMin">—</span></div>
-        <div class="irow"><span class="ilbl">Slippage</span><span class="ival" id="sSlipDisp">0.5%</span></div>
-        <div class="irow"><span class="ilbl">Price Impact</span><span class="ival" id="sPriceImpact">—</span></div>
+        <div class="irow"><span class="ilbl">Price Impact</span><span class="ival" id="sImpact">—</span></div>
+        <div class="irow"><span class="ilbl">Slippage</span><span class="ival" id="sSlipTxt">0.5%</span></div>
       </div>
       <div class="slip-row">
         <label>Slippage:</label>
         <div class="slip-opts">
-          <button class="sbtn on" onclick="setSlip(0.5,this,'s')">0.5%</button>
+          <button class="sbtn on" onclick="setSlip(.5,this,'s')">0.5%</button>
           <button class="sbtn"    onclick="setSlip(1,this,'s')">1%</button>
           <button class="sbtn"    onclick="setSlip(3,this,'s')">3%</button>
         </div>
@@ -193,149 +172,122 @@ header{position:sticky;top:0;z-index:100;background:rgba(2,6,8,.92);backdrop-fil
     </div>
   </div>
 
-  <!-- ═══════════ ADD LP ═══════════ -->
+  <!-- ═══ ADD LP ═══ -->
   <div id="p-lp" class="panel">
     <div class="card">
       <div class="ctitle">Add Liquidity</div>
-      <div id="lp-empty-warn" class="warnbox" style="display:none">
-        ⚠️ <b>Pool is empty.</b> You are setting the initial price.
-        Enter both token amounts carefully — this ratio becomes the market price.
+      <div id="lpW" class="warnbox" style="display:none"></div>
+      <div class="trow">
+        <select class="tsel" id="lA" onchange="onLC()">
+          <option value="USDC">USDC</option><option value="USDT">USDT</option>
+          <option value="WETH" selected>WETH</option><option value="WBTC">WBTC</option>
+        </select>
+        <input type="number" class="tinput" id="lAmtA" placeholder="0.00" oninput="onLA()" min="0"/>
       </div>
-      <div>
-        <div class="trow">
-          <select class="tsel" id="lA" onchange="onLPChange()">
-            <option value="USDC">USDC</option>
-            <option value="USDT">USDT</option>
-            <option value="WETH" selected>WETH</option>
-            <option value="WBTC">WBTC</option>
-          </select>
-          <input type="number" class="tinput" id="lAmtA" placeholder="0.00" oninput="onLPAmtA()" min="0"/>
-        </div>
-        <div class="tbal" id="lBa">Balance: — <span class="mx" onclick="maxLPA()">MAX</span></div>
-      </div>
+      <div class="tbal" id="lBa">Balance: — <span class="mx" onclick="maxLA()">MAX</span></div>
       <div class="plus">+</div>
-      <div>
-        <div class="trow">
-          <select class="tsel" id="lB" onchange="onLPChange()">
-            <option value="USDC" selected>USDC</option>
-            <option value="USDT">USDT</option>
-            <option value="WETH">WETH</option>
-            <option value="WBTC">WBTC</option>
-          </select>
-          <input type="number" class="tinput" id="lAmtB" placeholder="0.00" oninput="onLPAmtB()" min="0"/>
-        </div>
-        <div class="tbal" id="lBb">Balance: —</div>
+      <div class="trow">
+        <select class="tsel" id="lB" onchange="onLC()">
+          <option value="USDC" selected>USDC</option><option value="USDT">USDT</option>
+          <option value="WETH">WETH</option><option value="WBTC">WBTC</option>
+        </select>
+        <input type="number" class="tinput" id="lAmtB" placeholder="0.00" oninput="onLB()" min="0"/>
       </div>
-      <div class="resbox" id="resbox" style="display:none">
+      <div class="tbal" id="lBb">Balance: —</div>
+      <div id="resbox" class="resbox" style="display:none">
         <div class="restitle">POOL RESERVES</div>
         <div class="resrow"><span id="rS0" style="color:var(--text2)">—</span><span id="rV0">—</span></div>
         <div class="resrow"><span id="rS1" style="color:var(--text2)">—</span><span id="rV1">—</span></div>
       </div>
-      <div class="lpbox" id="lpbox" style="display:none">
-        <div class="irow"><span class="ilbl">Estimated Share</span><span class="ival g" id="lpShare">—</span></div>
-        <div class="irow"><span class="ilbl">Pair Address</span><span class="addr" id="lpPair">—</span></div>
-        <div class="irow"><span class="ilbl">Your LP Tokens</span><span class="ival" id="lpBal">—</span></div>
+      <div id="lpbox" class="lpbox" style="display:none">
+        <div class="irow"><span class="ilbl">Est. Share</span><span class="ival g" id="lpShare">—</span></div>
+        <div class="irow"><span class="ilbl">Your LP Balance</span><span class="ival" id="lpBal">—</span></div>
+        <div class="irow"><span class="ilbl">Pair</span><span class="addr" id="lpPair">—</span></div>
       </div>
-      <div class="slip-row" style="margin-top:10px">
+      <div class="slip-row" style="margin-top:9px">
         <label>Slippage:</label>
         <div class="slip-opts">
-          <button class="sbtn on" onclick="setSlip(0.5,this,'l')">0.5%</button>
+          <button class="sbtn on" onclick="setSlip(.5,this,'l')">0.5%</button>
           <button class="sbtn"    onclick="setSlip(1,this,'l')">1%</button>
           <button class="sbtn"    onclick="setSlip(3,this,'l')">3%</button>
         </div>
       </div>
       <div class="brow">
-        <button class="btn btn-s" id="lpAppBtn" onclick="doLPApprove()" disabled>Approve Tokens</button>
-        <button class="btn btn-p" id="lpAddBtn" onclick="doAddLP()" disabled>Add Liquidity</button>
+        <button class="btn btn-s" id="lpAppBtn" onclick="doLPApp()" disabled>Approve</button>
+        <button class="btn btn-p" id="lpAddBtn" onclick="doAddLP()" disabled>Add LP</button>
       </div>
     </div>
   </div>
 
-  <!-- ═══════════ BRIDGE ═══════════ -->
+  <!-- ═══ BRIDGE ═══ -->
   <div id="p-bridge" class="panel">
     <div class="card">
       <div class="ctitle">Bridge Tokens</div>
-      <div class="infobox">ℹ️ Sends tokens to another chain via <b>BridgeLitVM</b>. Approve first, then bridge.</div>
-      <div style="margin-top:10px">
-        <div class="trow">
-          <select class="tsel" id="brTok" onchange="onBridgeChange()">
-            <option value="USDC">USDC</option>
-            <option value="USDT">USDT</option>
-            <option value="WETH" selected>WETH</option>
-            <option value="WBTC">WBTC</option>
-          </select>
-          <input type="number" class="tinput" id="brAmt" placeholder="0.00" oninput="onBridgeChange()" min="0"/>
-        </div>
-        <div class="tbal" id="brBal">Balance: — <span class="mx" onclick="maxBridge()">MAX</span></div>
+      <div class="infobox">
+        ℹ️ <b>BridgeLitVM</b> — deposit tokens to this contract. The bridge operator releases funds on destination chain.<br>
+        <b>Selector used: <code style="color:var(--green)">0x4bbc170a</code></b> (decoded from bytecode)
       </div>
-      <div style="margin-top:8px">
-        <div class="trow">
-          <span style="font-size:.6rem;color:var(--text2);white-space:nowrap;margin-right:8px">TO</span>
-          <input type="text" class="tinput" id="brRecip" placeholder="Recipient (default: your wallet)" style="font-size:.68rem;font-weight:400"/>
-        </div>
+      <div class="trow" style="margin-top:10px">
+        <select class="tsel" id="brTok" onchange="updBrBal()">
+          <option value="USDC">USDC</option><option value="USDT">USDT</option>
+          <option value="WETH" selected>WETH</option><option value="WBTC">WBTC</option>
+        </select>
+        <input type="number" class="tinput" id="brAmt" placeholder="0.00" min="0"/>
       </div>
-      <div class="destbox">
-        <label>DESTINATION CHAIN</label>
-        <input type="number" class="dinput" id="brChain" value="1" placeholder="Chain ID"/>
-        <div class="chopts">
-          <button class="chopt on" onclick="setDestChain(1,this)">Ethereum (1)</button>
-          <button class="chopt"    onclick="setDestChain(10,this)">Optimism (10)</button>
-          <button class="chopt"    onclick="setDestChain(42161,this)">Arbitrum (42161)</button>
-          <button class="chopt"    onclick="setDestChain(8453,this)">Base (8453)</button>
-        </div>
+      <div class="tbal" id="brBal">Balance: — <span class="mx" onclick="maxBr()">MAX</span></div>
+      <div class="trow" style="margin-top:7px">
+        <span style="font-size:.58rem;color:var(--text2);white-space:nowrap;margin-right:7px;font-family:var(--fh)">TO</span>
+        <input type="text" class="tinput" id="brRecip" placeholder="Recipient address (default: your wallet)" style="font-size:.65rem;font-weight:400"/>
       </div>
-      <div class="qbox" style="margin-top:8px">
-        <div class="irow"><span class="ilbl">From</span><span class="ival g">LitVM (4441)</span></div>
-        <div class="irow"><span class="ilbl">To Chain</span><span class="ival" id="brDestName">Ethereum (1)</span></div>
-        <div class="irow"><span class="ilbl">Bridge Contract</span><span class="addr">0xd9Fe...7e9C</span></div>
+      <div class="qbox" style="margin-top:7px">
+        <div class="irow"><span class="ilbl">From</span><span class="ival g">LitVM Testnet (4441)</span></div>
+        <div class="irow"><span class="ilbl">Bridge Contract</span><span class="addr">0xd9Fe5b84...206937e9C</span></div>
+        <div class="irow"><span class="ilbl">Function</span><span class="ival" style="color:var(--cyan);font-size:.6rem">deposit(token, amount, recipient)</span></div>
       </div>
-      <div class="brow" style="margin-top:0">
-        <button class="btn btn-s" id="brAppBtn" onclick="doBridgeApprove()" disabled>Approve</button>
-        <button class="btn btn-p" id="brBtn"    onclick="doBridge()"        disabled>Bridge</button>
+      <div class="brow" style="margin-top:9px">
+        <button class="btn btn-s" id="brAppBtn" onclick="doBrApp()" disabled>Approve</button>
+        <button class="btn btn-p" id="brBtn"    onclick="doBridge()" disabled>Bridge</button>
       </div>
     </div>
   </div>
 
-  <!-- ═══════════ STAKE ═══════════ -->
+  <!-- ═══ STAKE ═══ -->
   <div id="p-stake" class="panel">
     <div class="card">
-      <div class="ctitle">Stake LP Tokens</div>
+      <div class="ctitle">Stake LP → Earn USDC</div>
       <div class="infobox">
-        Stake your <b>USDC/WETH LP tokens</b> to earn <b>USDC</b> rewards.<br>
-        Get LP tokens from the Add LP tab first.
+        Stake <b>USDC/WETH LP tokens</b> → earn <b>USDC</b> rewards.<br>
+        Get LP tokens from the LP tab first.
       </div>
-      <div class="stake-grid">
-        <div class="stkbox"><div class="stklab">YOUR LP BALANCE</div><div class="stkval" id="st-lpBal">—</div></div>
-        <div class="stkbox"><div class="stklab">STAKED AMOUNT</div><div class="stkval" id="st-staked">—</div></div>
-        <div class="stkbox"><div class="stklab">PENDING REWARD</div><div class="stkval" id="st-reward" style="color:var(--cyan)">—</div></div>
-        <div class="stkbox"><div class="stklab">TOTAL STAKED</div><div class="stkval" id="st-total">—</div></div>
+      <div class="stk-grid">
+        <div class="stkbox"><div class="stklab">LP BALANCE</div><div class="stkval" id="st-lp">—</div></div>
+        <div class="stkbox"><div class="stklab">STAKED</div><div class="stkval" id="st-staked">—</div></div>
+        <div class="stkbox"><div class="stklab">REWARDS</div><div class="stkval" id="st-rew" style="color:var(--cyan)">—</div></div>
+        <div class="stkbox"><div class="stklab">TOTAL STAKED</div><div class="stkval" id="st-tot">—</div></div>
       </div>
-      <div style="margin-top:12px">
-        <div class="trow">
-          <span style="font-size:.65rem;color:var(--text2);white-space:nowrap;margin-right:8px;font-family:var(--fh)">STAKE</span>
-          <input type="number" class="tinput" id="stAmt" placeholder="LP amount" min="0"/>
-        </div>
+      <div class="trow" style="margin-top:11px">
+        <span style="font-family:var(--fh);font-size:.62rem;color:var(--text2);white-space:nowrap;margin-right:8px">AMOUNT</span>
+        <input type="number" class="tinput" id="stAmt" placeholder="LP amount" min="0"/>
       </div>
       <div class="brow">
-        <button class="btn btn-s" id="stAppBtn"     onclick="doStakeApprove()" disabled>Approve LP</button>
-        <button class="btn btn-p" id="stBtn"         onclick="doStake()"       disabled>Stake</button>
+        <button class="btn btn-s" id="stAppBtn"   onclick="doStApp()"   disabled>Approve LP</button>
+        <button class="btn btn-p" id="stBtn"       onclick="doStake()"   disabled>Stake</button>
       </div>
       <div class="brow">
-        <button class="btn btn-y" id="stUnBtn"       onclick="doUnstake()"     disabled>Unstake</button>
-        <button class="btn btn-s" id="stClaimBtn"    onclick="doClaim()"       disabled>Claim USDC</button>
+        <button class="btn btn-y" id="stUnBtn"     onclick="doUnstake()" disabled>Unstake</button>
+        <button class="btn btn-s" id="stClaimBtn"  onclick="doClaim()"   disabled>Claim USDC</button>
       </div>
     </div>
   </div>
-
-</div><!-- /container -->
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
 <script>
-// ─── CONFIG ───────────────────────────────────────────
-const CHAIN_ID  = 4441;
+// ─── CONSTANTS ────────────────────────────────────────
+const CHAIN_ID = 4441;
 const CHAIN_HEX = '0x' + CHAIN_ID.toString(16);
-const RPC       = 'https://liteforge.rpc.caldera.xyz/http';
-const EXPLORER  = 'https://liteforge.explorer.caldera.xyz';
+const RPC      = 'https://liteforge.rpc.caldera.xyz/http';
+const EXPLORER = 'https://liteforge.explorer.caldera.xyz';
 
 const TOKENS = {
   USDC:{ address:'0xaaa101d72680F5aB9222431d4b3936Bb9a77702e', decimals:6  },
@@ -347,672 +299,491 @@ const ROUTER  = '0xB371068e32249ef14b396ECd7a3083A00A72dfA0';
 const FACTORY = '0x011646182FB03a91c237a6365CAa81a9BbbAcB45';
 const BRIDGE  = '0xd9Fe5b8473cC2B208023D7753b2b9bD206937e9C';
 const STAKING = '0xD3c18dB42Fb5Be0d419CF68c2e30FCD408bDA627';
-const LP_TOKEN= '0x0E6b86CA0D75333eb2Ac7f4f6b892a9DcE1a80b0';
+const LP_ADDR = '0x0E6b86CA0D75333eb2Ac7f4f6b892a9DcE1a80b0';
 
-const CHAINS = {1:'Ethereum (1)',10:'Optimism (10)',42161:'Arbitrum (42161)',8453:'Base (8453)'};
+// Bridge REAL selector decoded from bytecode:
+// 0x4bbc170a = deposit(address token, uint256 amount, address recipient) — 3 params only
+// (no destChainId — this is a custodial bridge, destination is implicit)
+const BRIDGE_SEL = '0x4bbc170a';
 
 // ─── ABIs ─────────────────────────────────────────────
-const ERC20_ABI = [
-  'function approve(address,uint256) external returns(bool)',
-  'function allowance(address,address) external view returns(uint256)',
-  'function balanceOf(address) external view returns(uint256)',
+const ERC20 = [
+  'function approve(address,uint256) returns(bool)',
+  'function allowance(address,address) view returns(uint256)',
+  'function balanceOf(address) view returns(uint256)',
 ];
 const ROUTER_ABI = [
-  'function addLiquidity(address,address,uint256,uint256,uint256,uint256,address,uint256) external returns(uint256,uint256,uint256)',
-  'function swapExactTokensForTokens(uint256,uint256,address[],address,uint256) external returns(uint256[])',
-  'function getAmountsOut(uint256,address[]) external view returns(uint256[])',
-  'function factory() external view returns(address)',
+  'function addLiquidity(address,address,uint256,uint256,uint256,uint256,address,uint256) returns(uint256,uint256,uint256)',
+  'function swapExactTokensForTokens(uint256,uint256,address[],address,uint256) returns(uint256[])',
+  'function getAmountsOut(uint256,address[]) view returns(uint256[])',
 ];
-const FACTORY_ABI = [
-  'function getPair(address,address) external view returns(address)',
-  'function createPair(address,address) external returns(address)',
-];
+const FACTORY_ABI = ['function getPair(address,address) view returns(address)'];
 const PAIR_ABI = [
-  'function getReserves() external view returns(uint112,uint112,uint32)',
-  'function token0() external view returns(address)',
-  'function totalSupply() external view returns(uint256)',
-  'function balanceOf(address) external view returns(uint256)',
-];
-// Bridge: try multiple signatures in fallback chain
-const BRIDGE_ABI = [
-  'function deposit(address token,uint256 amount,uint256 destChainId,address recipient) external',
-  'function bridge(address token,uint256 amount,uint256 destChainId,address recipient) external',
-  'function sendToken(address token,uint256 amount,uint256 destChainId,address recipient) external',
-  'function lock(address token,uint256 amount,uint256 destChainId,address recipient) external',
+  'function getReserves() view returns(uint112,uint112,uint32)',
+  'function token0() view returns(address)',
+  'function totalSupply() view returns(uint256)',
+  'function balanceOf(address) view returns(uint256)',
 ];
 const STAKING_ABI = [
-  'function stake(uint256) external',
-  'function deposit(uint256) external',
-  'function withdraw(uint256) external',
-  'function unstake(uint256) external',
-  'function getReward() external',
-  'function claimReward() external',
-  'function harvest() external',
-  'function earned(address) external view returns(uint256)',
-  'function pendingReward(address) external view returns(uint256)',
-  'function balanceOf(address) external view returns(uint256)',
-  'function totalSupply() external view returns(uint256)',
-  'function rewardToken() external view returns(address)',
-  'function stakingToken() external view returns(address)',
+  'function stake(uint256) external','function deposit(uint256) external',
+  'function withdraw(uint256) external','function unstake(uint256) external',
+  'function getReward() external','function claimReward() external','function harvest() external',
+  'function earned(address) view returns(uint256)',
+  'function pendingReward(address) view returns(uint256)',
+  'function balanceOf(address) view returns(uint256)',
+  'function totalSupply() view returns(uint256)',
 ];
 
 // ─── STATE ────────────────────────────────────────────
-let S = {
-  provider:null, signer:null, account:null,
-  bals:{}, lpBal:0,
-  sSlip:0.5, lSlip:0.5, brChain:1,
-};
-let lpPairAddr = null, lpRes = null, lpIsEmpty = false;
-let swapT=null, lpT=null;
+const S = { provider:null, signer:null, account:null, bals:{}, sSlip:.5, lSlip:.5 };
+let lpPairAddr=null, lpRes=null, lpIsEmpty=false;
+let swT=null, lpT=null;
 
 // ─── WALLET ───────────────────────────────────────────
 async function connectWallet() {
-  if (!window.ethereum){ toast('e','No Wallet','Install MetaMask or compatible wallet'); return; }
+  if (!window.ethereum){ toast('e','No Wallet','Install MetaMask'); return; }
   try {
     const accs = await window.ethereum.request({method:'eth_requestAccounts'});
-    S.account = accs[0];
+    S.account  = accs[0];
     S.provider = new ethers.providers.Web3Provider(window.ethereum);
     S.signer   = S.provider.getSigner();
     await ensureChain();
-    refreshWalletUI();
-    await loadAllBals();
-    unlockBtns();
-    toast('s','Connected',short(S.account));
-  } catch(e){ toast('e','Connection Failed',e.message); }
+    document.getElementById('connBtn').textContent = short(S.account);
+    document.getElementById('connBtn').classList.add('on');
+    document.getElementById('connBtn').onclick = ()=>{};
+    await loadBals();
+    unlockAll();
+    toast('s','Connected', short(S.account));
+  } catch(e){ toast('e','Failed', e.message?.slice(0,100)); }
 }
 
 async function ensureChain() {
   try {
     await window.ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:CHAIN_HEX}]});
   } catch(e) {
-    if (e.code===4902) {
-      await window.ethereum.request({method:'wallet_addEthereumChain',params:[{
-        chainId:CHAIN_HEX, chainName:'LitVM Testnet',
-        nativeCurrency:{name:'zkLTC',symbol:'zkLTC',decimals:18},
-        rpcUrls:[RPC], blockExplorerUrls:[EXPLORER],
-      }]});
-    }
+    if (e.code===4902) await window.ethereum.request({method:'wallet_addEthereumChain',params:[{
+      chainId:CHAIN_HEX, chainName:'LitVM Testnet',
+      nativeCurrency:{name:'zkLTC',symbol:'zkLTC',decimals:18},
+      rpcUrls:[RPC], blockExplorerUrls:[EXPLORER],
+    }]});
   }
   S.provider = new ethers.providers.Web3Provider(window.ethereum);
   S.signer   = S.provider.getSigner();
 }
 
-function refreshWalletUI() {
-  const b = document.getElementById('connBtn');
-  b.textContent = short(S.account);
-  b.classList.add('on');
-  b.onclick = ()=>{};
-}
-
-async function loadAllBals() {
+async function loadBals() {
   if (!S.account) return;
-  // ERC20 balances
   for (const [sym,tok] of Object.entries(TOKENS)) {
     try {
-      const c = new ethers.Contract(tok.address, ERC20_ABI, S.provider);
-      const raw = await c.balanceOf(S.account);
-      S.bals[sym] = parseFloat(ethers.utils.formatUnits(raw, tok.decimals));
-      const el = document.getElementById('b-'+sym);
-      if (el) el.textContent = fmt(S.bals[sym]);
+      const raw = await (new ethers.Contract(tok.address,ERC20,S.provider)).balanceOf(S.account);
+      S.bals[sym] = +ethers.utils.formatUnits(raw,tok.decimals);
+      const el = document.getElementById('b-'+sym); if(el) el.textContent=fmt(S.bals[sym]);
     } catch{}
   }
-  // LP balance
-  try {
-    const lp = new ethers.Contract(LP_TOKEN, ERC20_ABI, S.provider);
-    const raw = await lp.balanceOf(S.account);
-    S.lpBal = parseFloat(ethers.utils.formatUnits(raw, 18));
-  } catch{}
-  updateAllUI();
+  updSwBals(); updLPBals(); updBrBal(); updStakeUI();
 }
 
-function unlockBtns() {
-  document.getElementById('swapBtn').disabled  = false;
-  document.getElementById('swapBtn').textContent = 'Swap';
-  document.getElementById('lpAppBtn').disabled = false;
-  document.getElementById('lpAddBtn').disabled = false;
-  document.getElementById('brAppBtn').disabled = false;
-  document.getElementById('brBtn').disabled    = false;
-  document.getElementById('stAppBtn').disabled = false;
-  document.getElementById('stBtn').disabled    = false;
-  document.getElementById('stUnBtn').disabled  = false;
-  document.getElementById('stClaimBtn').disabled = false;
-}
-
-function updateAllUI() {
-  updateSwapBals(); updateLPBals(); updateBridgeBal(); updateStakeUI();
+function unlockAll() {
+  ['swapBtn','lpAppBtn','lpAddBtn','brAppBtn','brBtn','stAppBtn','stBtn','stUnBtn','stClaimBtn']
+    .forEach(id=>{ const e=document.getElementById(id); if(e) e.disabled=false; });
+  document.getElementById('swapBtn').textContent='Swap';
 }
 
 // ─── SWAP ─────────────────────────────────────────────
-function onSwapChange(){ updateSwapBals(); clearTimeout(swapT); swapT=setTimeout(getQuote,600); }
+function onSC(){ updSwBals(); clearTimeout(swT); swT=setTimeout(getQuote,550); }
 
-function updateSwapBals() {
-  const iS=document.getElementById('sIn').value;
-  const oS=document.getElementById('sOut').value;
-  document.getElementById('sBin').innerHTML = `Balance: ${fmt(S.bals[iS]||0)} <span class="mx" onclick="maxSwap()">MAX</span>`;
-  document.getElementById('sBout').textContent = `Balance: ${fmt(S.bals[oS]||0)}`;
+function updSwBals(){
+  const i=document.getElementById('sIn').value, o=document.getElementById('sOut').value;
+  document.getElementById('sBin').innerHTML  = `Balance: ${fmt(S.bals[i]||0)} <span class="mx" onclick="maxSwap()">MAX</span>`;
+  document.getElementById('sBout').textContent= `Balance: ${fmt(S.bals[o]||0)}`;
 }
+function maxSwap(){ document.getElementById('sAmtIn').value=S.bals[document.getElementById('sIn').value]||0; onSC(); }
 
-function maxSwap() {
-  document.getElementById('sAmtIn').value = S.bals[document.getElementById('sIn').value]||0;
-  onSwapChange();
-}
-
-function flipSwap() {
-  const i=document.getElementById('sIn'), o=document.getElementById('sOut'), t=i.value;
+function flipSwap(){
+  const i=document.getElementById('sIn'),o=document.getElementById('sOut'),t=i.value;
   i.value=o.value; o.value=t;
   document.getElementById('sAmtIn').value='';
   document.getElementById('sAmtOut').value='';
   document.getElementById('sqbox').style.display='none';
-  document.getElementById('swap-warn').style.display='none';
-  updateSwapBals();
+  document.getElementById('swW').style.display='none';
+  updSwBals();
 }
 
-async function getQuote() {
-  const amt = document.getElementById('sAmtIn').value;
-  const iS  = document.getElementById('sIn').value;
-  const oS  = document.getElementById('sOut').value;
-  const warnEl = document.getElementById('swap-warn');
-  document.getElementById('sAmtOut').value = '';
-  document.getElementById('sqbox').style.display = 'none';
-  warnEl.style.display = 'none';
-
-  if (!amt||parseFloat(amt)<=0||iS===oS) return;
-  if (!S.provider) return;
-
+async function getQuote(){
+  const amt=document.getElementById('sAmtIn').value;
+  const iS=document.getElementById('sIn').value, oS=document.getElementById('sOut').value;
+  document.getElementById('sAmtOut').value='';
+  document.getElementById('sqbox').style.display='none';
+  document.getElementById('swW').style.display='none';
+  if(!amt||+amt<=0||iS===oS||!S.provider) return;
   try {
-    const r = new ethers.Contract(ROUTER, ROUTER_ABI, S.provider);
-    const wi = ethers.utils.parseUnits(amt, TOKENS[iS].decimals);
-    const amts = await r.getAmountsOut(wi, [TOKENS[iS].address, TOKENS[oS].address]);
-    const out = parseFloat(ethers.utils.formatUnits(amts[1], TOKENS[oS].decimals));
-    const minOut = out * (1 - S.sSlip/100);
-
+    const r    = new ethers.Contract(ROUTER,ROUTER_ABI,S.provider);
+    const wi   = ethers.utils.parseUnits(amt,TOKENS[iS].decimals);
+    const amts = await r.getAmountsOut(wi,[TOKENS[iS].address,TOKENS[oS].address]);
+    const out  = +ethers.utils.formatUnits(amts[1],TOKENS[oS].decimals);
     document.getElementById('sAmtOut').value = out.toFixed(6);
-    document.getElementById('sRate').textContent = `1 ${iS} = ${(out/parseFloat(amt)).toFixed(6)} ${oS}`;
-    document.getElementById('sMin').textContent  = `${minOut.toFixed(6)} ${oS}`;
-    document.getElementById('sSlipDisp').textContent = S.sSlip+'%';
-
-    // Price impact estimate
-    const impact = (parseFloat(amt) / (parseFloat(amt) + out)) * 100;
-    const impEl = document.getElementById('sPriceImpact');
-    impEl.textContent = impact.toFixed(2)+'%';
-    impEl.className = 'ival ' + (impact>5?'r':impact>2?'y':'g');
-
-    document.getElementById('sqbox').style.display = 'block';
-  } catch(e) {
-    // Check if it's a no-liquidity error
-    const msg = e.reason || e.data || e.message || '';
-    if (msg.includes('INSUFFICIENT_LIQUIDITY') || msg.includes('ds-math') || msg.includes('0x') || msg === '') {
-      warnEl.innerHTML = '⚠️ <b>No liquidity in this pool.</b> Add liquidity first in the ADD LP tab.';
-      warnEl.style.display = 'block';
-    } else {
-      toast('w','Quote Failed', msg.slice(0,80));
-    }
+    document.getElementById('sRate').textContent   = `1 ${iS} = ${(out/+amt).toFixed(6)} ${oS}`;
+    document.getElementById('sMin').textContent    = `${(out*(1-S.sSlip/100)).toFixed(6)} ${oS}`;
+    document.getElementById('sSlipTxt').textContent= S.sSlip+'%';
+    const imp = document.getElementById('sImpact');
+    const pct = (+amt/(+amt+out))*100;
+    imp.textContent=pct.toFixed(2)+'%';
+    imp.className='ival '+(pct>5?'r':pct>2?'y':'g');
+    document.getElementById('sqbox').style.display='block';
+  } catch(e){
+    const w=document.getElementById('swW');
+    w.innerHTML='⚠️ <b>No liquidity.</b> Add liquidity first in the LP tab before swapping.';
+    w.style.display='block';
   }
 }
 
-async function doSwap() {
-  if (!S.signer){ toast('e','Not Connected','Connect wallet first'); return; }
-  const amtIn  = document.getElementById('sAmtIn').value;
-  const amtOut = document.getElementById('sAmtOut').value;
-  const iS = document.getElementById('sIn').value;
-  const oS = document.getElementById('sOut').value;
-  if (!amtIn||!amtOut||iS===oS){ toast('w','Invalid','Enter amount & different tokens'); return; }
-  if (parseFloat(amtIn)<=0){ toast('w','Amount','Must be > 0'); return; }
-
-  const iTok = TOKENS[iS], oTok = TOKENS[oS];
-  const wiIn     = ethers.utils.parseUnits(amtIn, iTok.decimals);
-  const wiOutMin = ethers.utils.parseUnits(
-    (parseFloat(amtOut)*(1-S.sSlip/100)).toFixed(oTok.decimals), oTok.decimals);
-
+async function doSwap(){
+  if(!S.signer){toast('e','Not Connected','');return;}
+  const amtIn=document.getElementById('sAmtIn').value;
+  const amtOut=document.getElementById('sAmtOut').value;
+  const iS=document.getElementById('sIn').value, oS=document.getElementById('sOut').value;
+  if(!amtIn||!amtOut||iS===oS){toast('w','Invalid','Enter amount & choose different tokens');return;}
+  const iTok=TOKENS[iS],oTok=TOKENS[oS];
+  const wiIn=ethers.utils.parseUnits(amtIn,iTok.decimals);
+  const wiMin=ethers.utils.parseUnits((+amtOut*(1-S.sSlip/100)).toFixed(oTok.decimals),oTok.decimals);
   try {
     showL('APPROVING '+iS+'...');
-    const tc  = new ethers.Contract(iTok.address, ERC20_ABI, S.signer);
-    const alw = await tc.allowance(S.account, ROUTER);
-    if (alw.lt(wiIn)) {
-      const tx = await tc.approve(ROUTER, ethers.constants.MaxUint256);
-      toast('i','Approving...','Waiting for confirmation');
-      await tx.wait();
-      toast('s','Approved',iS+' approved for Router');
+    const tc=new ethers.Contract(iTok.address,ERC20,S.signer);
+    if((await tc.allowance(S.account,ROUTER)).lt(wiIn)){
+      await(await tc.approve(ROUTER,ethers.constants.MaxUint256)).wait();
+      toast('s','Approved',iS);
     }
     setL('SWAPPING...');
-    const r  = new ethers.Contract(ROUTER, ROUTER_ABI, S.signer);
-    const dl = Math.floor(Date.now()/1000)+1200;
-    const tx = await r.swapExactTokensForTokens(wiIn, wiOutMin,
-      [iTok.address, oTok.address], S.account, dl);
-    toast('i','Tx Sent','Waiting for confirmation...');
-    const rc = await tx.wait();
+    const tx=await(new ethers.Contract(ROUTER,ROUTER_ABI,S.signer))
+      .swapExactTokensForTokens(wiIn,wiMin,[iTok.address,oTok.address],S.account,~~(Date.now()/1000)+1200);
+    toast('i','TX Submitted','');
+    await tx.wait(); hideL();
+    toast('s','Swap Done!',`${amtIn} ${iS} → ${(+amtOut).toFixed(4)} ${oS}`,tx.hash);
+    document.getElementById('sAmtIn').value=''; document.getElementById('sAmtOut').value='';
+    document.getElementById('sqbox').style.display='none';
+    await loadBals();
+  } catch(e){
     hideL();
-    toast('s','Swap Done!',`${amtIn} ${iS} → ~${parseFloat(amtOut).toFixed(4)} ${oS}`, tx.hash);
-    document.getElementById('sAmtIn').value  = '';
-    document.getElementById('sAmtOut').value = '';
-    document.getElementById('sqbox').style.display = 'none';
-    await loadAllBals();
-  } catch(e) {
-    hideL();
-    const msg = e.reason || e.error?.message || e.message || '';
-    if (msg.includes('INSUFFICIENT_LIQUIDITY')) {
-      toast('e','No Liquidity','Pool empty — add liquidity first');
-    } else {
-      toast('e','Swap Failed', msg.slice(0,120));
-    }
+    const m=e.reason||e.error?.message||e.message||'';
+    toast('e','Swap Failed',m.includes('LIQUIDITY')?'No liquidity in pool':m.slice(0,120));
   }
 }
 
 // ─── ADD LP ───────────────────────────────────────────
-function onLPChange()  { updateLPBals(); clearTimeout(lpT); lpT=setTimeout(fetchLP,700); }
-function onLPAmtA()    { clearTimeout(lpT); lpT=setTimeout(calcLPB,500); }
-function onLPAmtB()    { clearTimeout(lpT); lpT=setTimeout(updateLPPreview,300); }
+function onLC(){ updLPBals(); clearTimeout(lpT); lpT=setTimeout(fetchLP,700); }
+function onLA(){ clearTimeout(lpT); lpT=setTimeout(calcLPB,500); }
+function onLB(){ clearTimeout(lpT); lpT=setTimeout(updLPPreview,300); }
 
-function updateLPBals() {
-  const sA=document.getElementById('lA').value;
-  const sB=document.getElementById('lB').value;
-  document.getElementById('lBa').innerHTML = `Balance: ${fmt(S.bals[sA]||0)} <span class="mx" onclick="maxLPA()">MAX</span>`;
-  document.getElementById('lBb').textContent = `Balance: ${fmt(S.bals[sB]||0)}`;
+function updLPBals(){
+  const a=document.getElementById('lA').value, b=document.getElementById('lB').value;
+  document.getElementById('lBa').innerHTML  = `Balance: ${fmt(S.bals[a]||0)} <span class="mx" onclick="maxLA()">MAX</span>`;
+  document.getElementById('lBb').textContent= `Balance: ${fmt(S.bals[b]||0)}`;
 }
+function maxLA(){ document.getElementById('lAmtA').value=S.bals[document.getElementById('lA').value]||0; onLA(); }
 
-function maxLPA() {
-  document.getElementById('lAmtA').value = S.bals[document.getElementById('lA').value]||0;
-  onLPAmtA();
-}
-
-async function fetchLP() {
+async function fetchLP(){
   const sA=document.getElementById('lA').value, sB=document.getElementById('lB').value;
-  if (sA===sB||!S.provider) return;
+  if(sA===sB||!S.provider) return;
+  const W=document.getElementById('lpW');
   try {
-    const fc = new ethers.Contract(FACTORY, FACTORY_ABI, S.provider);
-    let pa = await fc.getPair(TOKENS[sA].address, TOKENS[sB].address);
-    lpPairAddr = pa;
-
-    const warnEl = document.getElementById('lp-empty-warn');
-    if (pa === ethers.constants.AddressZero) {
-      // Pair doesn't exist yet
-      lpRes = null; lpIsEmpty = true;
-      warnEl.innerHTML = '⚠️ <b>Pair not created yet.</b> Your tx will create the pair and set the initial price.';
-      warnEl.style.display = 'block';
-      document.getElementById('resbox').style.display = 'none';
-      document.getElementById('lpbox').style.display = 'none';
+    const fc=new ethers.Contract(FACTORY,FACTORY_ABI,S.provider);
+    const pa=await fc.getPair(TOKENS[sA].address,TOKENS[sB].address);
+    lpPairAddr=pa;
+    if(pa===ethers.constants.AddressZero){
+      lpRes=null; lpIsEmpty=true;
+      W.innerHTML='⚠️ <b>Pair not found.</b> Your tx will create it and set the initial price.';
+      W.style.display='block';
+      document.getElementById('resbox').style.display='none';
+      document.getElementById('lpbox').style.display='none';
       return;
     }
-
-    const pair = new ethers.Contract(pa, PAIR_ABI, S.provider);
-    const [r0,r1] = await pair.getReserves();
-    const t0 = (await pair.token0()).toLowerCase();
-    const isAt0 = TOKENS[sA].address.toLowerCase()===t0;
-    const rA=isAt0?r0:r1, rB=isAt0?r1:r0;
-    lpRes = {rA,rB,sA,sB};
-    lpIsEmpty = rA.isZero() && rB.isZero();
-
-    if (lpIsEmpty) {
-      warnEl.innerHTML = '⚠️ <b>Pool is empty.</b> You are setting the initial price ratio. Enter both amounts manually.';
-      warnEl.style.display = 'block';
-      document.getElementById('resbox').style.display = 'none';
+    const pair=new ethers.Contract(pa,PAIR_ABI,S.provider);
+    const [r0,r1]=await pair.getReserves();
+    const t0=(await pair.token0()).toLowerCase();
+    const isA0=TOKENS[sA].address.toLowerCase()===t0;
+    const rA=isA0?r0:r1, rB=isA0?r1:r0;
+    lpRes={rA,rB,sA,sB}; lpIsEmpty=rA.isZero()&&rB.isZero();
+    if(lpIsEmpty){
+      W.innerHTML='⚠️ <b>Pool is empty.</b> You set the initial price — enter both amounts manually.';
+      W.style.display='block';
+      document.getElementById('resbox').style.display='none';
     } else {
-      warnEl.style.display = 'none';
-      document.getElementById('rS0').textContent = sA+' Reserve';
-      document.getElementById('rV0').textContent = parseFloat(ethers.utils.formatUnits(rA,TOKENS[sA].decimals)).toFixed(4);
-      document.getElementById('rS1').textContent = sB+' Reserve';
-      document.getElementById('rV1').textContent = parseFloat(ethers.utils.formatUnits(rB,TOKENS[sB].decimals)).toFixed(4);
-      document.getElementById('resbox').style.display = 'block';
+      W.style.display='none';
+      document.getElementById('rS0').textContent=sA+' Reserve';
+      document.getElementById('rV0').textContent=(+ethers.utils.formatUnits(rA,TOKENS[sA].decimals)).toFixed(4);
+      document.getElementById('rS1').textContent=sB+' Reserve';
+      document.getElementById('rV1').textContent=(+ethers.utils.formatUnits(rB,TOKENS[sB].decimals)).toFixed(4);
+      document.getElementById('resbox').style.display='block';
     }
-
-    // Show LP balance
-    const lpC = new ethers.Contract(pa, PAIR_ABI, S.provider);
-    const lpRaw = S.account ? await lpC.balanceOf(S.account) : ethers.BigNumber.from(0);
-    document.getElementById('lpBal').textContent = parseFloat(ethers.utils.formatUnits(lpRaw,18)).toFixed(6)+' LP';
-    document.getElementById('lpPair').textContent = pa.slice(0,8)+'...'+pa.slice(-6);
-
+    const lpRaw=S.account?await pair.balanceOf(S.account):ethers.BigNumber.from(0);
+    document.getElementById('lpBal').textContent=(+ethers.utils.formatUnits(lpRaw,18)).toFixed(6)+' LP';
+    document.getElementById('lpPair').textContent=pa.slice(0,8)+'...'+pa.slice(-6);
     await calcLPB();
-  } catch(e){ console.error('fetchLP:',e.message); }
+  } catch(e){ console.error('fetchLP',e.message); }
 }
 
-async function calcLPB() {
-  if (lpIsEmpty) { updateLPPreview(); return; } // empty pool: user sets both amounts
-  const amtA = document.getElementById('lAmtA').value;
-  if (!amtA||parseFloat(amtA)<=0||!lpRes){ updateLPPreview(); return; }
+async function calcLPB(){
+  if(lpIsEmpty){updLPPreview();return;}
+  const aA=document.getElementById('lAmtA').value;
+  if(!aA||+aA<=0||!lpRes){updLPPreview();return;}
   const sA=document.getElementById('lA').value, sB=document.getElementById('lB').value;
-  const {rA,rB} = lpRes;
-  const wiA = ethers.utils.parseUnits(amtA, TOKENS[sA].decimals);
-  const wiB = wiA.mul(rB).div(rA);
-  document.getElementById('lAmtB').value = parseFloat(ethers.utils.formatUnits(wiB,TOKENS[sB].decimals)).toFixed(6);
-  updateLPPreview();
+  const wiA=ethers.utils.parseUnits(aA,TOKENS[sA].decimals);
+  document.getElementById('lAmtB').value=(+ethers.utils.formatUnits(wiA.mul(lpRes.rB).div(lpRes.rA),TOKENS[sB].decimals)).toFixed(6);
+  updLPPreview();
 }
 
-async function updateLPPreview() {
-  if (!lpPairAddr || lpPairAddr===ethers.constants.AddressZero){ document.getElementById('lpbox').style.display='none'; return; }
-  try {
-    const pair = new ethers.Contract(lpPairAddr, PAIR_ABI, S.provider);
-    const ts   = await pair.totalSupply();
-    const amtA = parseFloat(document.getElementById('lAmtA').value||0);
-    if (amtA<=0){ document.getElementById('lpbox').style.display='none'; return; }
-    let share;
-    if (lpIsEmpty) {
-      share = 100; // first provider gets 100%
-    } else {
-      const rAf = parseFloat(ethers.utils.formatUnits(lpRes.rA, TOKENS[lpRes.sA].decimals));
-      share = (amtA/(rAf+amtA))*100;
-    }
-    document.getElementById('lpShare').textContent = (lpIsEmpty?'~100':share.toFixed(4))+'%';
-    document.getElementById('lpbox').style.display = 'block';
-  } catch{}
+async function updLPPreview(){
+  if(!lpPairAddr||lpPairAddr===ethers.constants.AddressZero){document.getElementById('lpbox').style.display='none';return;}
+  const aA=+document.getElementById('lAmtA').value||0;
+  if(aA<=0){document.getElementById('lpbox').style.display='none';return;}
+  const share=lpIsEmpty?100:(aA/(aA+(lpRes?+ethers.utils.formatUnits(lpRes.rA,TOKENS[lpRes.sA].decimals):0)+aA))*100;
+  document.getElementById('lpShare').textContent=(lpIsEmpty?'~100':share.toFixed(4))+'%';
+  document.getElementById('lpbox').style.display='block';
 }
 
-async function doLPApprove() {
-  if (!S.signer){ toast('e','Not Connected','Connect wallet first'); return; }
+async function doLPApp(){
+  if(!S.signer){toast('e','Not Connected','');return;}
   const sA=document.getElementById('lA').value, sB=document.getElementById('lB').value;
   const aA=document.getElementById('lAmtA').value, aB=document.getElementById('lAmtB').value;
-  if (!aA||!aB||parseFloat(aA)<=0||parseFloat(aB)<=0){ toast('w','Enter Amounts','Fill both token amounts first'); return; }
+  if(!aA||!aB||+aA<=0||+aB<=0){toast('w','Enter Amounts','');return;}
   try {
-    showL('APPROVING TOKENS...');
-    const cA = new ethers.Contract(TOKENS[sA].address, ERC20_ABI, S.signer);
-    const cB = new ethers.Contract(TOKENS[sB].address, ERC20_ABI, S.signer);
-    const wiA = ethers.utils.parseUnits(aA, TOKENS[sA].decimals);
-    const wiB = ethers.utils.parseUnits(aB, TOKENS[sB].decimals);
-    const alA = await cA.allowance(S.account, ROUTER);
-    if (alA.lt(wiA)){
-      const t=await cA.approve(ROUTER,ethers.constants.MaxUint256);
-      toast('i','Approving '+sA,'Waiting...');
-      await t.wait();
-      toast('s','Approved',sA+' ready');
+    showL('APPROVING...');
+    const cA=new ethers.Contract(TOKENS[sA].address,ERC20,S.signer);
+    const cB=new ethers.Contract(TOKENS[sB].address,ERC20,S.signer);
+    const wiA=ethers.utils.parseUnits(aA,TOKENS[sA].decimals);
+    const wiB=ethers.utils.parseUnits(aB,TOKENS[sB].decimals);
+    if((await cA.allowance(S.account,ROUTER)).lt(wiA)){
+      setL('APPROVING '+sA+'...');
+      await(await cA.approve(ROUTER,ethers.constants.MaxUint256)).wait();
+      toast('s','Approved',sA);
     }
-    const alB = await cB.allowance(S.account, ROUTER);
-    if (alB.lt(wiB)){
-      const t=await cB.approve(ROUTER,ethers.constants.MaxUint256);
-      toast('i','Approving '+sB,'Waiting...');
-      await t.wait();
-      toast('s','Approved',sB+' ready');
+    if((await cB.allowance(S.account,ROUTER)).lt(wiB)){
+      setL('APPROVING '+sB+'...');
+      await(await cB.approve(ROUTER,ethers.constants.MaxUint256)).wait();
+      toast('s','Approved',sB);
     }
-    hideL();
-    toast('s','All Approved',`${sA} & ${sB} ready for Router`);
+    hideL(); toast('s','Both Approved',`${sA} & ${sB} ready`);
   } catch(e){ hideL(); toast('e','Approve Failed',e.reason||e.message); }
 }
 
-async function doAddLP() {
-  if (!S.signer){ toast('e','Not Connected','Connect wallet first'); return; }
+async function doAddLP(){
+  if(!S.signer){toast('e','Not Connected','');return;}
   const sA=document.getElementById('lA').value, sB=document.getElementById('lB').value;
-  if (sA===sB){ toast('w','Invalid','Select different tokens'); return; }
+  if(sA===sB){toast('w','Same Token','Select different tokens');return;}
   const aA=document.getElementById('lAmtA').value, aB=document.getElementById('lAmtB').value;
-  if (!aA||!aB||parseFloat(aA)<=0||parseFloat(aB)<=0){ toast('w','Enter Amounts','Both amounts required'); return; }
-
-  const wiA = ethers.utils.parseUnits(aA, TOKENS[sA].decimals);
-  const wiB = ethers.utils.parseUnits(aB, TOKENS[sB].decimals);
-  // For empty pools: set minAmount to 0 (no price enforcement)
-  // For existing pools: apply slippage
-  const slip = lpIsEmpty ? 0 : Math.floor((1-S.lSlip/100)*10000);
-  const wiAm = lpIsEmpty ? ethers.BigNumber.from(0) : wiA.mul(slip).div(10000);
-  const wiBm = lpIsEmpty ? ethers.BigNumber.from(0) : wiB.mul(slip).div(10000);
-
+  if(!aA||!aB||+aA<=0||+aB<=0){toast('w','Enter Amounts','Both amounts required');return;}
+  const wiA=ethers.utils.parseUnits(aA,TOKENS[sA].decimals);
+  const wiB=ethers.utils.parseUnits(aB,TOKENS[sB].decimals);
+  // Empty pool → amountMin MUST be 0, otherwise router rejects
+  const wiAm=lpIsEmpty?ethers.BigNumber.from(0):wiA.mul(~~((1-S.lSlip/100)*10000)).div(10000);
+  const wiBm=lpIsEmpty?ethers.BigNumber.from(0):wiB.mul(~~((1-S.lSlip/100)*10000)).div(10000);
   try {
-    // Auto-approve if needed
     showL('CHECKING APPROVALS...');
-    const cA = new ethers.Contract(TOKENS[sA].address, ERC20_ABI, S.signer);
-    const cB = new ethers.Contract(TOKENS[sB].address, ERC20_ABI, S.signer);
-    const alA = await cA.allowance(S.account, ROUTER);
-    const alB = await cB.allowance(S.account, ROUTER);
-    if (alA.lt(wiA)){
-      setL('APPROVING '+sA+'...');
-      const t=await cA.approve(ROUTER,ethers.constants.MaxUint256);
-      await t.wait();
+    const cA=new ethers.Contract(TOKENS[sA].address,ERC20,S.signer);
+    const cB=new ethers.Contract(TOKENS[sB].address,ERC20,S.signer);
+    if((await cA.allowance(S.account,ROUTER)).lt(wiA)){
+      setL('APPROVING '+sA+'...'); await(await cA.approve(ROUTER,ethers.constants.MaxUint256)).wait();
     }
-    if (alB.lt(wiB)){
-      setL('APPROVING '+sB+'...');
-      const t=await cB.approve(ROUTER,ethers.constants.MaxUint256);
-      await t.wait();
+    if((await cB.allowance(S.account,ROUTER)).lt(wiB)){
+      setL('APPROVING '+sB+'...'); await(await cB.approve(ROUTER,ethers.constants.MaxUint256)).wait();
     }
-
     setL('ADDING LIQUIDITY...');
-    const r  = new ethers.Contract(ROUTER, ROUTER_ABI, S.signer);
-    const dl = Math.floor(Date.now()/1000)+1200;
-    const tx = await r.addLiquidity(
-      TOKENS[sA].address, TOKENS[sB].address,
-      wiA, wiB, wiAm, wiBm,
-      S.account, dl,
-      {gasLimit:500000}
+    const r=new ethers.Contract(ROUTER,ROUTER_ABI,S.signer);
+    const tx=await r.addLiquidity(
+      TOKENS[sA].address,TOKENS[sB].address,
+      wiA,wiB,wiAm,wiBm,S.account,
+      ~~(Date.now()/1000)+1200,
+      {gasLimit:600000}
     );
     toast('i','TX Submitted','Adding liquidity...');
-    await tx.wait();
+    await tx.wait(); hideL();
+    toast('s','LP Added!',`${aA} ${sA} + ${aB} ${sB}`,tx.hash);
+    document.getElementById('lAmtA').value=''; document.getElementById('lAmtB').value='';
+    await loadBals(); await fetchLP();
+  } catch(e){
     hideL();
-    toast('s','LP Added!',`${aA} ${sA} + ${aB} ${sB}`, tx.hash);
-    document.getElementById('lAmtA').value='';
-    document.getElementById('lAmtB').value='';
-    await loadAllBals();
-    await fetchLP();
-  } catch(e) {
-    hideL();
-    const msg = e.reason || e.error?.message || e.message || '';
-    if (msg.includes('IDENTICAL_ADDRESSES')) toast('e','Error','Select different tokens');
-    else if (msg.includes('INSUFFICIENT_A_AMOUNT') || msg.includes('INSUFFICIENT_B_AMOUNT'))
-      toast('e','Slippage','Increase slippage tolerance');
-    else toast('e','Add LP Failed', msg.slice(0,140));
+    const m=e.reason||e.error?.message||e.message||'';
+    if(m.includes('INSUFFICIENT_A')||m.includes('INSUFFICIENT_B')) toast('e','Slippage','Increase slippage tolerance');
+    else if(m.includes('IDENTICAL')) toast('e','Same Token','Choose different tokens');
+    else toast('e','Add LP Failed',m.slice(0,140));
   }
 }
 
 // ─── BRIDGE ───────────────────────────────────────────
-function onBridgeChange(){ updateBridgeBal(); }
-function updateBridgeBal(){
-  const sym=document.getElementById('brTok').value;
-  document.getElementById('brBal').innerHTML = `Balance: ${fmt(S.bals[sym]||0)} <span class="mx" onclick="maxBridge()">MAX</span>`;
+// REAL ABI decoded from bytecode:
+// selector 0x4bbc170a = deposit(address token, uint256 amount, address recipient)
+// This is a 3-param custodial bridge — no destChainId
+function updBrBal(){
+  const s=document.getElementById('brTok').value;
+  document.getElementById('brBal').innerHTML=`Balance: ${fmt(S.bals[s]||0)} <span class="mx" onclick="maxBr()">MAX</span>`;
 }
-function maxBridge(){ document.getElementById('brAmt').value=S.bals[document.getElementById('brTok').value]||0; }
-function setDestChain(id,el){
-  document.querySelectorAll('.chopt').forEach(b=>b.classList.remove('on'));
-  el.classList.add('on');
-  document.getElementById('brChain').value=id;
-  S.brChain=id;
-  document.getElementById('brDestName').textContent=CHAINS[id]||'Chain '+id;
-}
+function maxBr(){ document.getElementById('brAmt').value=S.bals[document.getElementById('brTok').value]||0; }
 
-async function doBridgeApprove(){
-  if (!S.signer){ toast('e','Not Connected','Connect wallet first'); return; }
-  const sym=document.getElementById('brTok').value;
-  const amt=document.getElementById('brAmt').value;
-  if (!amt||parseFloat(amt)<=0){ toast('w','Enter Amount',''); return; }
+async function doBrApp(){
+  if(!S.signer){toast('e','Not Connected','');return;}
+  const sym=document.getElementById('brTok').value, amt=document.getElementById('brAmt').value;
+  if(!amt||+amt<=0){toast('w','Enter Amount','');return;}
   try {
     showL('APPROVING...');
-    const c   = new ethers.Contract(TOKENS[sym].address, ERC20_ABI, S.signer);
-    const wi  = ethers.utils.parseUnits(amt, TOKENS[sym].decimals);
-    const alw = await c.allowance(S.account, BRIDGE);
-    if (alw.gte(wi)){ hideL(); toast('i','Already Approved','Sufficient allowance for bridge'); return; }
-    const tx  = await c.approve(BRIDGE, ethers.constants.MaxUint256);
-    await tx.wait();
-    hideL();
-    toast('s','Approved',sym+' approved for Bridge');
+    const c=new ethers.Contract(TOKENS[sym].address,ERC20,S.signer);
+    const wi=ethers.utils.parseUnits(amt,TOKENS[sym].decimals);
+    if((await c.allowance(S.account,BRIDGE)).gte(wi)){hideL();toast('i','Already Approved','');return;}
+    await(await c.approve(BRIDGE,ethers.constants.MaxUint256)).wait();
+    hideL(); toast('s','Approved',sym+' ready for Bridge');
   } catch(e){ hideL(); toast('e','Approve Failed',e.reason||e.message); }
 }
 
 async function doBridge(){
-  if (!S.signer){ toast('e','Not Connected','Connect wallet first'); return; }
-  const sym    = document.getElementById('brTok').value;
-  const amt    = document.getElementById('brAmt').value;
-  const destId = parseInt(document.getElementById('brChain').value);
-  let recip    = document.getElementById('brRecip').value.trim()||S.account;
-
-  if (!amt||parseFloat(amt)<=0){ toast('w','Invalid','Enter amount'); return; }
-  if (!ethers.utils.isAddress(recip)){ toast('e','Invalid Address','Check recipient'); return; }
-
-  const wi      = ethers.utils.parseUnits(amt, TOKENS[sym].decimals);
+  if(!S.signer){toast('e','Not Connected','');return;}
+  const sym   = document.getElementById('brTok').value;
+  const amt   = document.getElementById('brAmt').value;
+  let recip   = document.getElementById('brRecip').value.trim()||S.account;
+  if(!amt||+amt<=0){toast('w','Enter Amount','');return;}
+  if(!ethers.utils.isAddress(recip)){toast('e','Invalid Address','Check recipient field');return;}
   const tokAddr = TOKENS[sym].address;
-
-  // Auto-approve check
+  const wi      = ethers.utils.parseUnits(amt,TOKENS[sym].decimals);
   try {
+    // Auto-approve
     showL('CHECKING APPROVAL...');
-    const tc  = new ethers.Contract(tokAddr, ERC20_ABI, S.signer);
-    const alw = await tc.allowance(S.account, BRIDGE);
-    if (alw.lt(wi)){
+    const tc=new ethers.Contract(tokAddr,ERC20,S.signer);
+    if((await tc.allowance(S.account,BRIDGE)).lt(wi)){
       setL('APPROVING...');
-      const t = await tc.approve(BRIDGE, ethers.constants.MaxUint256);
-      await t.wait();
-      toast('s','Approved',sym+' approved');
+      await(await tc.approve(BRIDGE,ethers.constants.MaxUint256)).wait();
+      toast('s','Approved',sym);
     }
-  } catch(e){ hideL(); toast('e','Approve Failed',e.reason||e.message); return; }
-
-  // Try bridge functions in order (from probe: all selectors exist)
-  const iface = new ethers.utils.Interface(BRIDGE_ABI);
-  const fns   = ['deposit','bridge','sendToken','lock'];
-  let success = false;
-
-  for (const fn of fns) {
-    try {
-      setL('BRIDGING via '+fn+'()...');
-      const data = iface.encodeFunctionData(fn, [tokAddr, wi, destId, recip]);
-      const tx   = await S.signer.sendTransaction({to:BRIDGE, data, gasLimit:200000});
-      toast('i','Bridge TX','Waiting for confirmation...');
-      await tx.wait();
-      hideL();
-      toast('s','Bridged!',`${amt} ${sym} → ${CHAINS[destId]||destId}`, tx.hash);
-      document.getElementById('brAmt').value='';
-      await loadAllBals();
-      success = true;
-      break;
-    } catch(e){
-      const msg = e.reason||e.error?.message||e.message||'';
-      console.warn(`bridge fn ${fn} failed:`, msg);
-      // If it's a meaningful revert (not "function not found"), stop
-      if (msg.includes('PAUSED')||msg.includes('paused')){ hideL(); toast('e','Bridge Paused','Contract is paused'); return; }
-    }
+    setL('BRIDGING...');
+    // Use raw selector 0x4bbc170a decoded directly from contract bytecode
+    // deposit(address token, uint256 amount, address recipient) — 3 params
+    const data = ethers.utils.concat([
+      BRIDGE_SEL,
+      ethers.utils.defaultAbiCoder.encode(
+        ['address','uint256','address'],
+        [tokAddr, wi, recip]
+      )
+    ]);
+    const tx = await S.signer.sendTransaction({to:BRIDGE, data, gasLimit:120000});
+    toast('i','Bridge TX Sent','Waiting for confirmation...');
+    await tx.wait(); hideL();
+    toast('s','Bridged!',`${amt} ${sym} deposited to bridge`,tx.hash);
+    document.getElementById('brAmt').value='';
+    await loadBals();
+  } catch(e){
+    hideL();
+    const m=e.reason||e.error?.message||e.message||'';
+    toast('e','Bridge Failed',m.slice(0,140));
   }
-  if (!success){ hideL(); toast('e','Bridge Failed','All function signatures reverted. Check bridge contract.'); }
 }
 
 // ─── STAKING ──────────────────────────────────────────
-async function updateStakeUI(){
-  if (!S.account||!S.provider) return;
+async function updStakeUI(){
+  if(!S.account||!S.provider) return;
   try {
-    const lp = new ethers.Contract(LP_TOKEN, ERC20_ABI, S.provider);
-    const raw = await lp.balanceOf(S.account);
-    S.lpBal = parseFloat(ethers.utils.formatUnits(raw,18));
-    document.getElementById('st-lpBal').textContent = fmt(S.lpBal)+' LP';
+    const lp=new ethers.Contract(LP_ADDR,ERC20,S.provider);
+    document.getElementById('st-lp').textContent=fmt(+ethers.utils.formatUnits(await lp.balanceOf(S.account),18))+' LP';
   } catch{}
   try {
-    const st = new ethers.Contract(STAKING, STAKING_ABI, S.provider);
-    // Staked balance
+    const st=new ethers.Contract(STAKING,STAKING_ABI,S.provider);
+    try { document.getElementById('st-staked').textContent=fmt(+ethers.utils.formatUnits(await st.balanceOf(S.account),18))+' LP'; } catch{}
     try {
-      const bal = await st.balanceOf(S.account);
-      document.getElementById('st-staked').textContent = parseFloat(ethers.utils.formatUnits(bal,18)).toFixed(6)+' LP';
+      let r; try{r=await st.earned(S.account);}catch{r=await st.pendingReward(S.account);}
+      document.getElementById('st-rew').textContent=fmt(+ethers.utils.formatUnits(r,6))+' USDC';
     } catch{}
-    // Pending reward
-    try {
-      let rew;
-      try { rew = await st.earned(S.account); }
-      catch { rew = await st.pendingReward(S.account); }
-      document.getElementById('st-reward').textContent = parseFloat(ethers.utils.formatUnits(rew,6)).toFixed(4)+' USDC';
-    } catch{}
-    // Total staked
-    try {
-      const ts = await st.totalSupply();
-      document.getElementById('st-total').textContent = parseFloat(ethers.utils.formatUnits(ts,18)).toFixed(4)+' LP';
-    } catch{}
+    try { document.getElementById('st-tot').textContent=fmt(+ethers.utils.formatUnits(await st.totalSupply(),18))+' LP'; } catch{}
   } catch{}
 }
 
-async function doStakeApprove(){
-  if (!S.signer){ toast('e','Not Connected',''); return; }
-  const amt = document.getElementById('stAmt').value;
-  if (!amt||parseFloat(amt)<=0){ toast('w','Enter Amount',''); return; }
+async function doStApp(){
+  if(!S.signer){toast('e','Not Connected','');return;}
+  const amt=document.getElementById('stAmt').value;
+  if(!amt||+amt<=0){toast('w','Enter Amount','');return;}
   try {
     showL('APPROVING LP...');
-    const c   = new ethers.Contract(LP_TOKEN, ERC20_ABI, S.signer);
-    const wi  = ethers.utils.parseUnits(amt,18);
-    const alw = await c.allowance(S.account, STAKING);
-    if (alw.gte(wi)){ hideL(); toast('i','Already Approved','Sufficient allowance'); return; }
-    const tx  = await c.approve(STAKING, ethers.constants.MaxUint256);
-    await tx.wait();
-    hideL(); toast('s','Approved','LP Token approved for Staking');
+    const c=new ethers.Contract(LP_ADDR,ERC20,S.signer);
+    const wi=ethers.utils.parseUnits(amt,18);
+    if((await c.allowance(S.account,STAKING)).gte(wi)){hideL();toast('i','Already Approved','');return;}
+    await(await c.approve(STAKING,ethers.constants.MaxUint256)).wait();
+    hideL(); toast('s','LP Approved','');
   } catch(e){ hideL(); toast('e','Approve Failed',e.reason||e.message); }
 }
 
 async function doStake(){
-  if (!S.signer){ toast('e','Not Connected',''); return; }
-  const amt = document.getElementById('stAmt').value;
-  if (!amt||parseFloat(amt)<=0){ toast('w','Enter Amount',''); return; }
-  const wi = ethers.utils.parseUnits(amt,18);
+  if(!S.signer){toast('e','Not Connected','');return;}
+  const amt=document.getElementById('stAmt').value;
+  if(!amt||+amt<=0){toast('w','Enter Amount','');return;}
+  const wi=ethers.utils.parseUnits(amt,18);
   try {
-    showL('STAKING LP...');
-    const c = new ethers.Contract(STAKING, STAKING_ABI, S.signer);
-    let tx;
-    try { tx = await c.stake(wi,{gasLimit:300000}); }
-    catch { tx = await c.deposit(wi,{gasLimit:300000}); }
-    toast('i','Staking...','Waiting for confirmation');
-    await tx.wait();
-    hideL(); toast('s','Staked!',`${amt} LP staked`, tx.hash);
+    showL('STAKING...');
+    const c=new ethers.Contract(STAKING,STAKING_ABI,S.signer);
+    let tx; try{tx=await c.stake(wi,{gasLimit:300000});}catch{tx=await c.deposit(wi,{gasLimit:300000});}
+    toast('i','Staking...',''); await tx.wait(); hideL();
+    toast('s','Staked!',`${amt} LP`,tx.hash);
     document.getElementById('stAmt').value='';
-    await loadAllBals(); await updateStakeUI();
+    await loadBals(); await updStakeUI();
   } catch(e){ hideL(); toast('e','Stake Failed',e.reason||e.message); }
 }
 
 async function doUnstake(){
-  if (!S.signer){ toast('e','Not Connected',''); return; }
-  const amt = document.getElementById('stAmt').value;
-  if (!amt||parseFloat(amt)<=0){ toast('w','Enter Amount','LP amount to unstake'); return; }
-  const wi = ethers.utils.parseUnits(amt,18);
+  if(!S.signer){toast('e','Not Connected','');return;}
+  const amt=document.getElementById('stAmt').value;
+  if(!amt||+amt<=0){toast('w','Enter Amount','');return;}
+  const wi=ethers.utils.parseUnits(amt,18);
   try {
     showL('UNSTAKING...');
-    const c = new ethers.Contract(STAKING, STAKING_ABI, S.signer);
-    let tx;
-    try { tx = await c.withdraw(wi,{gasLimit:300000}); }
-    catch { tx = await c.unstake(wi,{gasLimit:300000}); }
-    toast('i','Unstaking...','');
-    await tx.wait();
-    hideL(); toast('s','Unstaked!',`${amt} LP withdrawn`, tx.hash);
-    await loadAllBals(); await updateStakeUI();
+    const c=new ethers.Contract(STAKING,STAKING_ABI,S.signer);
+    let tx; try{tx=await c.withdraw(wi,{gasLimit:300000});}catch{tx=await c.unstake(wi,{gasLimit:300000});}
+    await tx.wait(); hideL();
+    toast('s','Unstaked!',`${amt} LP`,tx.hash);
+    await loadBals(); await updStakeUI();
   } catch(e){ hideL(); toast('e','Unstake Failed',e.reason||e.message); }
 }
 
 async function doClaim(){
-  if (!S.signer){ toast('e','Not Connected',''); return; }
+  if(!S.signer){toast('e','Not Connected','');return;}
   try {
-    showL('CLAIMING USDC...');
-    const c = new ethers.Contract(STAKING, STAKING_ABI, S.signer);
-    let tx;
-    try { tx = await c.getReward({gasLimit:200000}); }
-    catch { try { tx = await c.claimReward({gasLimit:200000}); }
-    catch { tx = await c.harvest({gasLimit:200000}); }}
-    toast('i','Claiming...','');
-    await tx.wait();
-    hideL(); toast('s','Claimed!','USDC rewards sent to wallet', tx.hash);
-    await loadAllBals(); await updateStakeUI();
+    showL('CLAIMING...');
+    const c=new ethers.Contract(STAKING,STAKING_ABI,S.signer);
+    let tx; try{tx=await c.getReward({gasLimit:200000});}
+    catch{try{tx=await c.claimReward({gasLimit:200000});}catch{tx=await c.harvest({gasLimit:200000});}}
+    await tx.wait(); hideL();
+    toast('s','Claimed!','USDC sent to wallet',tx.hash);
+    await loadBals(); await updStakeUI();
   } catch(e){ hideL(); toast('e','Claim Failed',e.reason||e.message); }
 }
 
 // ─── SLIPPAGE ─────────────────────────────────────────
 function setSlip(v,el,ctx){
-  const grp = ctx==='s'?'#p-swap .sbtn':'#p-lp .sbtn';
-  document.querySelectorAll(grp).forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll(ctx==='s'?'#p-swap .sbtn':'#p-lp .sbtn').forEach(b=>b.classList.remove('on'));
   el.classList.add('on');
-  if (ctx==='s'){ S.sSlip=v; getQuote(); } else S.lSlip=v;
+  if(ctx==='s'){S.sSlip=v;getQuote();}else S.lSlip=v;
 }
-function setSlipC(v,ctx){
-  if(!v||isNaN(v))return;
-  if(ctx==='s'){ S.sSlip=parseFloat(v); getQuote(); } else S.lSlip=parseFloat(v);
-}
+function setSlipC(v,ctx){if(!v||isNaN(v))return;if(ctx==='s'){S.sSlip=+v;getQuote();}else S.lSlip=+v;}
 
 // ─── TABS ─────────────────────────────────────────────
-function switchTab(name,el){
+function sw(name,el){
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
-  document.getElementById('p-'+name).classList.add('on');
-  el.classList.add('on');
-  if (name==='lp')     { updateLPBals(); fetchLP(); }
-  if (name==='bridge') { updateBridgeBal(); }
-  if (name==='swap')   { updateSwapBals(); }
-  if (name==='stake')  { updateStakeUI(); }
+  document.getElementById('p-'+name).classList.add('on'); el.classList.add('on');
+  if(name==='lp')    {updLPBals();fetchLP();}
+  if(name==='bridge'){updBrBal();}
+  if(name==='swap')  {updSwBals();}
+  if(name==='stake') {updStakeUI();}
 }
 
 // ─── LOADER / TOAST ───────────────────────────────────
-function showL(t){ document.getElementById('ltxt').textContent=t||'PROCESSING...'; document.getElementById('lov').classList.add('show'); }
-function setL(t) { document.getElementById('ltxt').textContent=t; }
-function hideL() { document.getElementById('lov').classList.remove('show'); }
+function showL(t){document.getElementById('ltxt').textContent=t;document.getElementById('lov').classList.add('show');}
+function setL(t) {document.getElementById('ltxt').textContent=t;}
+function hideL() {document.getElementById('lov').classList.remove('show');}
 
 function toast(type,title,msg,hash){
-  const c=document.getElementById('tc');
   const el=document.createElement('div');
   el.className='toast '+type;
   el.innerHTML=`<div class="ttitle">${title}</div><div class="tmsg">${msg||''}</div>`
-    +(hash?`<a class="txlnk" href="${EXPLORER}/tx/${hash}" target="_blank">View Tx ↗</a>`:'');
-  c.appendChild(el);
-  setTimeout(()=>{ el.style.animation='fOut .3s ease forwards'; setTimeout(()=>el.remove(),300); },6000);
+    +(hash?`<a class="txlnk" href="${EXPLORER}/tx/${hash}" target="_blank">View TX ↗</a>`:'');
+  document.getElementById('tc').appendChild(el);
+  setTimeout(()=>{el.style.animation='fOut .3s ease forwards';setTimeout(()=>el.remove(),300);},6000);
 }
 
-function short(a){ return a?a.slice(0,6)+'...'+a.slice(-4):''; }
+function short(a){return a?a.slice(0,6)+'...'+a.slice(-4):'';}
 function fmt(n){
   if(n===undefined||n===null||isNaN(n))return'—';
   if(n===0)return'0';
@@ -1026,17 +797,18 @@ function fmt(n){
 if(window.ethereum){
   window.ethereum.on('accountsChanged',async accs=>{
     if(!accs.length){
-      S.account=null; S.signer=null;
+      S.account=null;S.signer=null;
       const b=document.getElementById('connBtn');
-      b.textContent='Connect Wallet'; b.classList.remove('on'); b.onclick=connectWallet;
+      b.textContent='Connect Wallet';b.classList.remove('on');b.onclick=connectWallet;
     } else {
-      S.account=accs[0]; S.signer=S.provider.getSigner();
-      refreshWalletUI(); await loadAllBals();
+      S.account=accs[0];S.signer=S.provider.getSigner();
+      document.getElementById('connBtn').textContent=short(S.account);
+      await loadBals();
     }
   });
   window.ethereum.on('chainChanged',()=>location.reload());
 }
-document.getElementById('connBtn').onclick = connectWallet;
+document.getElementById('connBtn').onclick=connectWallet;
 </script>
 </body>
 </html>
